@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/spa_page_manager.css"/>
+    <link rel="stylesheet" href="css/service-contract.css"/>
 </head>
 <body>
 <div class="header">
@@ -26,11 +27,11 @@
 
         <table>
             <tr>
-                <th>高速通信モード<</th>
+                <th>高速通信モード</th>
                 <th>切り替え</th>
             </tr>
             <tr>
-                <td></td>
+                <td>低速</td>
                 <td>
                     <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
                         通信モード切替
@@ -100,17 +101,22 @@
             </a>
         </div>
     </div>
+
+    <input type="hidden" id="server-host" value="."/>
+    <input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510" />
+    <input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511" />
 </div>
 
 <script src="js/jquery/jquery.js"></script>
 <script src="js/jquery/jquery.uriAnchor.js"></script>
 <script src="js/bootstrap/bootstrap.min.js"></script>
 <script src="js/spa_page_manager.js"></script>
+<script src="js/service_contract_plan_speed_volume.js"></script>
 <script>
     $(function () {
         var is_debug_mode = true;
-//        plan_change.initModule($('#plan-change-container'), $('#server-host'), {'contractId': $('#contract-id').val()}, is_debug_mode);
-//        spa_page_transition.initModule($('#plan-change-container'), is_debug_mode);
+        plan_speed_volume.initModule($('#plan-speed-volume-container'), $('#server-host'), {}, is_debug_mode);
+        spa_page_transition.initModule($('#plan-speed-volume-container'), is_debug_mode);
     });
 </script>
 </body>

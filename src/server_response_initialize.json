@@ -1,0 +1,43 @@
+{
+  "status": "0",
+  "message": "illegal status of init",
+  "plan_list": [
+    {
+      "id": "1",
+      "cd": "plan1",
+      "name": "Cheep plan for everybody",
+      "price": "1,000",
+      "initial_charge": "100",
+      "notes_title1": "Warning1",
+      "notes_body1": "Be careful<br/> Be careful<br/> Be careful Be careful Be careful Be careful Be careful "
+    },
+    {
+      "id": "2",
+      "cd": "plan2",
+      "name": "Normal plan for average people",
+      "price": "2,000",
+      "initial_charge": "",
+      "notes_title1": "Warning1",
+      "notes_body1": "Be careful<br/> Be careful<br/> Be careful Be careful Be careful Be careful Be careful ",
+      "notes_title2": "Warning2",
+      "notes_body2": "Be careful Be careful Be careful Be careful Be careful Be careful Be careful "
+    },
+    {
+      "id": "3",
+      "cd": "plan3",
+      "name": "Luxury plan for specific person",
+      "price": "3,000",
+      "initial_charge": "300",
+      "notes_title1": "Warning1",
+      "notes_body1": "Be careful Be careful Be careful Be careful Be careful Be careful Be careful ",
+      "notes_title2": "Warning2",
+      "notes_body2": "Be careful Be careful Be careful Be careful Be careful Be careful Be careful ",
+      "notes_title3": "Warning3",
+      "notes_body3": "Be careful Be careful Be careful Be careful Be careful Be careful Be careful "
+    }
+  ],
+  "init_data": {
+    "service_start_req_date": "2016/10/10",
+    "change_fee": "5000"
+  }
+}
