@@ -1,0 +1,189 @@
+body {
+    position: relative;;
+    height: 100%;
+}
+#plan-change-container {
+    width: 800px;
+    border: solid 1px;
+}
+
+.box {
+    border: solid 1px #ddd;
+    padding: 10px 10px 5px 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    margin: 10px 0px 10px 0px;
+}
+
+.box ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.box ul li {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.box-for-btn {
+    border: none;
+    margin: 40px 0px 10px 0px;
+    text-align: center;
+}
+
+.current-plan {
+    margin-bottom: 10px;
+}
+
+.change-plan-to {
+    padding-left: 100px;
+    margin-bottom: 10px;
+}
+.change-plan-to-img {
+    width:40px;
+}
+
+.new-plan-list {
+
+}
+
+.plan-change-explain {
+    margin: 5px;
+    padding: 5px;
+}
+
+.plan-change-explain-bottom {
+    margin: 40px 0px 5px 0px;
+    padding: 5px;
+}
+
+.change-plan-warning {
+    margin: 0px 0px 10px 0px;
+    padding: 5px;
+    width: 100%;
+    height: 70px;
+    overflow: auto;
+    border: solid 1px lightgrey;
+}
+
+.change-plan-question {
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+    width: 100%;
+    height: 100px;
+    /*overflow: auto;*/
+    border: none;
+    background-color: aliceblue;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.change-plan-warning li {
+    padding: 5px;
+}
+
+.change-plan-question li {
+    padding: 5px;
+}
+
+.new-plan-confirm-detail {
+    width: 100%;
+    background-color: #ececf9;
+    color: #2d2d86;
+    border: solid 1px #2d2d86;
+    margin: 5px 0px 5px 0px;
+    padding: 5px 5px 0px 15px;
+}
+
+.new-plan-detail {
+    margin: 20px 0px 0px 0px;
+}
+
+table.new-plan-detail {
+    line-height: 1.5;
+    width: 40%;
+    margin: auto;
+}
+
+table.new-plan-detail th {
+    font-weight: normal;
+    border: none;
+    padding-left: 20px;
+}
+
+table.new-plan-detail td {
+    padding-right: 20px;
+    text-align: right;
+}
+
+table.new-plan-detail th.last {
+    border-top: 1px solid;
+}
+
+table.new-plan-detail td.last {
+    border-top: 1px solid;
+}
+
+.plan-change-cancel-btn-area {
+    width: 400px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    padding-right: 20px;
+    text-align: right;
+}
+.plan-change-cancel-check {
+    cursor: pointer;
+    font-weight: 100;
+}
+.plan-change-cancel-btn-wrapper {
+    overflow: hidden;
+}
+.plan-change-cancel-btn-wrapper:after {
+    clear: both;
+}
+.cancel-confirm-btn-disable {
+    pointer-events: none;
+    background: url(../img/btn_plan_change_cancel_disable_off.gif);
+    width: 150px;
+    height: 40px;
+    margin-left: 5px;
+    display: block;
+    float: right;
+}
+.cancel-confirm-btn-enable {
+    background: url(../img/btn_plan_change_cancel_off.gif);
+    width: 150px;
+    height: 40px;
+    margin-left: 5px;
+    display: block;
+    float: right;
+}
+
+.plan-accordion-header {
+    width: inherit;
+    height: 35px;
+    background: #9d9d9d;
+    margin: 10px 0px 10px 0px;
+    padding: 5px;
+    border: solid 1px;
+    cursor: pointer;
+
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+.plan-accordion-header-title {
+    font-size: 110%;
+}
+
+.plan-change-nowloading {
+    margin-top: 100px;
+    width: 100%;
+    height: 300px;
+    text-align: center;
+}
