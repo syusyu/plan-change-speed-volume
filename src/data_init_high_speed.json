@@ -1,0 +1,7 @@
+{
+  "status": "0",
+  "init_data": {
+    "mode_high_speed": "1",
+    "enable_change_speed": "1"
+  }
+}

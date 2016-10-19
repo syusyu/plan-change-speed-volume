@@ -187,3 +187,29 @@ table.new-plan-detail td.last {
     height: 300px;
     text-align: center;
 }
+
+
+/* plan speed */
+img.plan-speed-mode {
+    width: 100px;
+}
+
+table.plan-speed-change {
+    line-height: 1.5;
+    width: 60%;
+    margin: auto;
+}
+
+table.plan-speed-change th {
+    padding: 5px;
+    font-weight: normal;
+    background-color: #dddddd;
+    border: solid 1px grey;
+    text-align: center;
+}
+
+table.plan-speed-change td {
+    padding: 5px;
+    border: solid 1px grey;
+    text-align: center;
+}

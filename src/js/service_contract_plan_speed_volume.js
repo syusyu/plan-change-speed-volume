@@ -1,6 +1,6 @@
 var plan_speed_volume = (function () {
     var
-        INIT_DATA_EVENT = 'head',
+        INIT_DATA_EVENT = 'init_data',
 
         logger, getLogger,
 
@@ -31,8 +31,8 @@ var plan_speed_volume = (function () {
         initLogger(is_debug_mode);
 
         spa_page_transition.addAction('initialize', 'plan-detail-main', preparePage);
-        spa_page_transition.addAction('next-to-change-speed', 'plan-speed-change');
-        spa_page_transition.addAction('back-to-plan-detail-main', 'plan-detail-main');
+        spa_page_transition.addAction('next-to-change-speed', 'plan-speed-change', preparePage);
+        spa_page_transition.addAction('back-to-plan-detail-main', 'plan-detail-main', preparePage);
         spa_page_transition.addAction('update-speed', 'plan-speed-complete', updateSpeed);
 
         spa_page_transition.addEvent(INIT_DATA_EVENT);
@@ -72,24 +72,24 @@ plan_speed_volume.model = (function () {
 
     server_data = (function () {
         var
-            srv_data,
-            prepare, get_srv_data;
+            init_data,
+            prepare, get_init_data;
 
         prepare = function (data) {
-            srv_data = data;
+            init_data = data.init_data;
         };
-        get_srv_data = function () {
-            return srv_data;
+        get_init_data = function () {
+            return init_data;
         };
         return {
             prepare: prepare,
-            get_srv_data: get_srv_data,
+            get_init_data: get_init_data,
         }
     })();
 
     preparePage = function () {
         plan_speed_volume.getLogger().debug('model.preparePage is executed.');
-        $(spa_page_transition.DATA_BIND_EVENT).trigger(plan_speed_volume.INIT_DATA_EVENT, server_data.get_srv_data());
+        $(spa_page_transition.DATA_BIND_EVENT).trigger(plan_speed_volume.INIT_DATA_EVENT, server_data.get_init_data());
     };
 
     updateSpeed = function () {
@@ -121,8 +121,9 @@ plan_speed_volume.data = (function () {
     var
         doAccessServerWrapper, PATH_INIT, PATH_UPDATE;
 
-    PATH_INIT = '/server_response_initialize.json';
-    PATH_UPDATE = '/server_response_update.json';
+    PATH_INIT = '/data_init_low_speed.json';
+    // PATH_INIT = '/data_init_disable.json';
+    PATH_UPDATE = '/data_update.json';
     // PATH_INIT = '/changeplan/init';
     // PATH_UPDATE = '/changeplan/update';
 

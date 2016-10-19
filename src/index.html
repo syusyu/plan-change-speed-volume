@@ -12,7 +12,7 @@
 <body>
 <div class="header">
     <div class="container">
-        <h1><a href=""><img src="img/icon.png" class="logo">Change plan</a></h1>
+        <h1><a href=""><img src="img/icon.png" class="logo">Change speed</a></h1>
     </div><!-- container -->
 </div>
 
@@ -32,17 +32,22 @@
             </tr>
             <tr>
                 <td>
-                    <div data-bind-show="">
-                        <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
-                    </div>
-                    <div data-bind-show="">
+                    <div data-bind-show-id="init_data.mode_high_speed">
                         <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
+                    </div>
+                    <div data-bind-show-id="init_data.mode_low_speed">
+                        <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
                     </div>
                 </td>
                 <td>
-                    <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
-                        通信モード切替
-                    </a>
+                    <div data-bind-show-id="init_data.enable_change_speed">
+                        <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
+                            通信モード切替
+                        </a>
+                    </div>
+                    <div data-bind-show-id="init_data.disable_change_speed">
+                        通信モード切替はできません。
+                    </div>
                 </td>
             </tr>
         </table>
@@ -54,14 +59,15 @@
 
         <p>高速/低速の通信速度切替ができます。</p>
 
-        <div class="plan-change-explain">
+        <div class="change-plan-question">
             <ul>
                 <li>高速通信可能残量が、、</li>
                 <li>低速状態では、、</li>
                 <li>3日あたりの通信量が、、</li>
             </ul>
         </div>
-        <table>
+
+        <table class="plan-speed-change">
             <tr>
                 <th>プラン名称</th>
                 <th>SIM回線番号</th>
@@ -70,14 +76,25 @@
             <tr>
                 <td>テスト週間１Gプラン</td>
                 <td>090-2297-1778</td>
-                <td></td>
+                <td>
+                    <div data-bind-show-id="init_data.mode_high_speed">
+                        <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
+                    </div>
+                    <div data-bind-show-id="init_data.mode_low_speed">
+                        <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
+                    </div>
+                </td>
             </tr>
         </table>
 
         <div class="plan-change-cancel-btn-area">
             <div>
                 <label class="plan-change-cancel-check">
-                    <input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>通信速度を<span>高速</span>にする
+                    通信速度を
+                    <span data-bind-show-id="init_data.mode_high_speed">高速</span>
+                    <span data-bind-show-id="init_data.mode_low_speed">低速</span>
+                    にする
+                    <input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>
                 </label>
             </div>
             <div class="plan-change-cancel-btn-wrapper">
