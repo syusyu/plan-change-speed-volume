@@ -1,0 +1,31 @@
+{
+  "head": {
+    "id2": "head01",
+    "title": "This is a title of some entity",
+    "props": {
+      "prop1": {
+        "prop11": "val11",
+        "prop12": "val12"
+      },
+      "prop2": {
+        "prop21": "val21",
+        "prop22": "val22"
+      }
+    },
+    "body": "This is a body",
+    "plans": [
+      {"id": "p100", "text": "Plan1", "val": "100", "devices": [
+        {"id": "d11", "title": "Device title1 of plan1", "body": "Divice body1 of plan1"},
+        {"id": "d12", "title": "Device title2 of plan1", "body": "Divice body2 of plan1"}
+      ]},
+      {"id": "p200", "text": "Plan2", "val": "200", "devices": [
+        {"id": "d21", "title": "Device title1 of plan2", "body": "Divice body1 of plan2"},
+        {"id": "d22", "title": "Device title2 of plan2", "body": "Divice body2 of plan2"}
+      ]},
+      {"id": "p300", "text": "Plan3", "val": "300", "devices": [
+        {"id": "d31", "title": "Device title1 of plan3", "body": "Divice body1 of plan3"},
+        {"id": "d32", "title": "Device title2 of plan3", "body": "Divice body2 of plan3"}
+      ]}
+    ]
+  }
+}

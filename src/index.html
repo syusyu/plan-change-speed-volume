@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service contract</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/spa_page_manager.css"/>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <h1><a href=""><img src="img/icon.png" class="logo">Change plan</a></h1>
+    </div><!-- container -->
+</div>
+
+<div id="plan-speed-volume-container" class="container">
+    <p id="ins">Should be inserted</p>
+    <p>
+        Title:
+        <span data-bind-text="head.title"></span>
+    </p>
+
+    <p>
+        Body:
+        <span data-bind-text="head.body" data-bind-id="head.id" data-bind-show="head.id"></span>
+    </p>
+
+    <p>
+        Props:
+        <span data-bind-text="head.props.prop1.prop11"></span>
+        <span data-bind-text="head.props.prop1.prop12"></span>
+    </p>
+
+    <p>Plans:</p>
+    <!--<input type="radio" name="plans" data-bind-id="plan.id" data-bind-text="plan.text" data-bind-val="plan.val"/>-->
+    <div data-bind-loop="head.plans">
+        <input type="radio" name="plans" data-bind-id="head.plans.id" data-bind-val="head.plans.val"/><span data-bind-text="head.plans.text"></span>
+        <br/>
+        <select>
+            <div data-bind-loop="head.plans.decices">
+                <option data-bind-text="head.plans.devices.title" data-bind-val="head.plans.devices.id" data-bind-id="head.plans.devices.id"></option>
+            </div>
+        </select>
+    </div>
+</div>
+
+<script src="js/jquery/jquery.js"></script>
+<script src="js/jquery/jquery.uriAnchor.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="js/spa_page_manager.js"></script>
+<script>
+    $(function () {
+        var is_debug_mode = true;
+//        plan_change.initModule($('#plan-change-container'), $('#server-host'), {'contractId': $('#contract-id').val()}, is_debug_mode);
+//        spa_page_transition.initModule($('#plan-change-container'), is_debug_mode);
+    });
+</script>
+</body>
+</html>

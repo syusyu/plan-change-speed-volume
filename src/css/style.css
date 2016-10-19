@@ -1,0 +1,100 @@
+/***** header *****/
+.header {
+    padding: 10px 10px 0 10px;
+    margin: 0px 0px 20px 0px;
+    background-color: #b0c4de;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.header h1 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.header .logo {
+    margin: 0 10px 0 0;
+    border: none;
+    vertical-align: -15px;
+    height: 50px;
+}
+
+
+/***** font-awesome *****/
+a.grid-slider-to-hide:before, a.grid-slider-to-show:before, .submenu li a:before {
+    position: absolute;
+    top: 12px;
+    color: #b0c4de;
+    font-family: 'FontAwesome';
+    font-size: 18px;
+    line-height: 1;
+}
+
+
+/***** grid slider *****/
+.fade {
+    opacity: 0;
+}
+
+.col-sm-3, .col-sm-9, .col-sm-1, .col-sm-11 {
+    transition: all 1s;
+}
+
+a.grid-slider-to-hide:before {
+    left: 20px;
+    content: '\f048';
+}
+
+a.grid-slider-to-show:before {
+    left: 80px;
+    content: '\f051';
+}
+
+/***** sub menu *****/
+.submenu {
+    border: solid 1px #aaa;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: all 1s;
+}
+
+.submenu > .panel-heading {
+    padding-left: 25px;
+    border-bottom: solid 1px #aaa;
+    background-color: #fff;
+}
+
+.submenu li a {
+    position: relative;
+    display: block;
+    padding: 10px 5px 10px 20px;
+    color: #000;
+    text-decoration: none;
+}
+
+.submenu li a:before {
+    left: 0px;
+    content: '\f061';
+    line-height: 1;
+}
+
+.submenu .li-selected {
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+/***** footer *****/
+.footer {
+    color: #fff;
+    padding: 30px 0px 30px 0px;
+    background-color: #b0c4de;
+    text-align: center;
+}
+
+

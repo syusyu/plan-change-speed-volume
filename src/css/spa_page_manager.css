@@ -1,0 +1,101 @@
+.spa-page {
+    opacity: 0;
+    display: none;
+    transition: 1s;
+}
+
+.spa-page.visible {
+    opacity: 1;
+    display: block;
+    animation-duration: 1s;
+    animation-name: fade-in;
+    pointer-events: auto;
+}
+
+@keyframes fade-in {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.spa-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 800px;
+    height: 600px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    overflow: hidden;
+    background: #fff;
+    z-index: 10;
+}
+
+.spa-modal-container {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    overflow: auto;
+}
+
+.spa-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 5;
+    cursor: pointer;
+}
+
+.spa-modal-contents-title {
+    background-color: #4682B4;
+    color: #FFFFFF;
+    height: 40px;
+    overflow: hidden;
+}
+.spa-modal-contents-title:after {
+    clear: both;
+}
+
+.spa-modal-contents-title-left {
+    padding: 10px 0px 0px 10px;
+    font-size: 130%;
+    float: left;
+}
+
+.spa-modal-close {
+    margin-top: -5px;
+    padding: 0px 10px 0px 0px;
+    font-size: 250%;
+    float: right;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.spa-modal-contents-body {
+    margin:0px;
+    padding: 10px;
+    padding: 10px;
+}
+
+.spa-update-btn-disabled {
+    pointer-events: none;
+}
