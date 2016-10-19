@@ -99,3 +99,9 @@
 .spa-update-btn-disabled {
     pointer-events: none;
 }
+
+
+/* plan speed */
+img.plan-speed-mode {
+    width: 100px;
+}

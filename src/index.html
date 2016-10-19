@@ -31,7 +31,14 @@
                 <th>切り替え</th>
             </tr>
             <tr>
-                <td>低速</td>
+                <td>
+                    <div data-bind-show="">
+                        <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
+                    </div>
+                    <div data-bind-show="">
+                        <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
+                    </div>
+                </td>
                 <td>
                     <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
                         通信モード切替
@@ -103,8 +110,8 @@
     </div>
 
     <input type="hidden" id="server-host" value="."/>
-    <input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510" />
-    <input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511" />
+    <input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510"/>
+    <input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511"/>
 </div>
 
 <script src="js/jquery/jquery.js"></script>
