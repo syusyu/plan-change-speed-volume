@@ -33,7 +33,7 @@ var spa_page_transition = (function () {
     };
 
     initModule = function ($container, is_debug_mode) {
-        spaLogger = spa_log.createLogger(is_debug_mode, '##### SPA.LOG ##### ');
+        spaLogger = spa_log.createLogger(is_debug_mode, 'SPA.LOG ');
         spa_page_transition.model.initModule();
         spa_page_transition.shell.initModule($container);
     };
@@ -297,7 +297,11 @@ spa_page_transition.shell = (function () {
             execAction($.uriAnchor.makeAnchorMap());
         });
 
-        if ($container) {
+        $('[data-bind-show-cond],[data-bind-show-id]').each(function (idx, el) {
+            $(el).hide();
+        });
+
+            if ($container) {
             $errorDetailMessage = $container.find('#error-detail-message');
         }
 
@@ -365,39 +369,35 @@ spa_page_transition.shell = (function () {
                         }
                     }
                 });
-                $('*[data-bind-show-id]').each(function (idx, obj) {
-                    var obj_key_list = $(this).attr('data-bind-show-id').split('\.');
-                    if (obj_key_list && obj_key_list[0] === key) {
-                        if (!data[obj_key_list[1]]) {
-                            $(this).hide();
-                        } else {
-                            $(this).show();
-                        }
-                    }
-                });
-                $('*[data-bind-show-cond]').each(function (idx, obj) {
+                $('[data-bind-show-cond],[data-bind-show-id]').each(function (idx, el) {
                     var
-                        obj_key_cond_list, obj_key_list, cond, val;
+                        pure_attr, obj_key_cond_list, obj_key_list, cond, val;
 
-                    obj_key_cond_list = $(this).attr('data-bind-show-cond').split('=');
+                    if (!data) {
+                        $(el).hide();
+                        console.warn('data-bind-show-cond.data is null');
+                        return true;
+                    }
+
+                    pure_attr = $(el).attr('data-bind-show-cond') ? $(el).attr('data-bind-show-cond') : $(el).attr('data-bind-show-id');
+                    if (!pure_attr) {
+                        return true;
+                    }
+
+                    obj_key_cond_list = pure_attr.split('=');
+                    obj_key_list = obj_key_cond_list[0].split('\.');
                     if (obj_key_cond_list.length > 1) {
-                        obj_key_list = obj_key_cond_list[0].split('\.');
                         cond = obj_key_cond_list[1];
-                    } else {
-                        obj_key_list = obj_key_cond_list.split('\.');
                     }
 
                     if (obj_key_list && obj_key_list[0] === key) {
                         val = data[obj_key_list[1]];
                         if (!val) {
-                            $(this).hide();
-                            spa_page_transition.getLogger().debug("show-cond.HIDE1!")
+                            $(el).hide();
                         } else if (cond && cond !== val) {
-                            spa_page_transition.getLogger().debug("show-cond.HIDE2!")
-                            $(this).hide();
+                            $(el).hide();
                         } else {
-                            spa_page_transition.getLogger().debug("show-cond.SHOW!")
-                            $(this).show();
+                            $(el).show();
                         }
                     }
                 });
@@ -552,7 +552,6 @@ var spa_page_data = (function () {
         serverAccessor(filePath, send_params).done(function (data) {
             succeeded_func(data);
             dfd.resolve();
-            // }).fail(function (data) {
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             if (errorThrown) {
                 console.error(errorThrown.message);

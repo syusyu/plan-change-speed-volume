@@ -32,20 +32,23 @@
             </tr>
             <tr>
                 <td>
-                    <div data-bind-show-id="init_data.mode_high_speed">
+                    <div data-bind-show-cond="speed.mode_high_speed=1">
                         <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
                     </div>
-                    <div data-bind-show-id="init_data.mode_low_speed">
+                    <div data-bind-show-cond="speed.mode_high_speed=0">
                         <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
+                    </div>
+                    <div data-bind-show-cond="speed.mode_high_speed=-1">
+                        不明
                     </div>
                 </td>
                 <td>
-                    <div data-bind-show-cond="init_data.enable_change_speed=1">
+                    <div data-bind-show-cond="speed.enable_change_speed=1">
                         <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
                             通信モード切替
                         </a>
                     </div>
-                    <div data-bind-show-cond="init_data.enble_change_speed=0">
+                    <div data-bind-show-cond="speed.enable_change_speed=0">
                         通信モード切替はできません。
                     </div>
                 </td>
@@ -59,11 +62,11 @@
 
         <p>高速/低速の通信速度切替ができます。</p>
 
-        <div class="change-plan-question">
+        <div class="plan-speed-change-notice">
             <ul>
-                <li>高速通信可能残量が、、</li>
-                <li>低速状態では、、</li>
-                <li>3日あたりの通信量が、、</li>
+                <li>高速通信可能残量が残っている場合に、高速/英速を切り替えることができます。</li>
+                <li>低速状態では、高速通信可能残量にかかわらず、最大200kbpsの通信速度になります。</li>
+                <li>3日あたりの通信量が一定の既定値を越えた場合、設定に関わらず速度制限される場合があります。</li>
             </ul>
         </div>
 
@@ -77,29 +80,29 @@
                 <td>テスト週間１Gプラン</td>
                 <td>090-2297-1778</td>
                 <td>
-                    <div data-bind-show-id="init_data.mode_high_speed">
+                    <div data-bind-show-cond="speed.mode_high_speed=1">
                         <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
                     </div>
-                    <div data-bind-show-id="init_data.mode_low_speed">
+                    <div data-bind-show-cond="speed.mode_high_speed=0">
                         <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
                     </div>
                 </td>
             </tr>
         </table>
 
-        <div class="plan-change-cancel-btn-area">
+        <div class="plan-speed-change-btn-area">
             <div>
-                <label class="plan-change-cancel-check">
-                    通信速度を
-                    <span data-bind-show-id="init_data.mode_high_speed">高速</span>
-                    <span data-bind-show-id="init_data.mode_low_speed">低速</span>
-                    にする
+                <label class="plan-speed-change-check">
                     <input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>
+                    通信速度を
+                    <span data-bind-show-id="speed.mode_high_speed=1">低速</span>
+                    <span data-bind-show-id="speed.mode_high_speed=0">高速</span>
+                    にする
                 </label>
             </div>
-            <div class="plan-change-cancel-btn-wrapper">
+            <div class="plan-speed-change-btn-wrapper">
                 <a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
-                    <img src="img/btn_back_off.gif" alt=""/>
+                    <img src="img/btn_back_off.gif" alt="" class="plan-speed-change-back-btn" />
                 </a>
 
                 <a href="javascript:void(0);"
@@ -112,12 +115,18 @@
     </div>
 
     <div class="spa-page plan-speed-complete">
-        <div data-bind-show-id=""></div>
-        <h3>通信速度を切り替えました。</h3>
+        <div data-bind-show-cond="speed_update.status=0">
+            <h3>通信速度を切り替えました。</h3>
+            <p>プラン：XXX</p>
+            <p>SIM：XXX-XXXX-XXXX</p>
+        </div>
 
-        <div class="plan-change-explain">
-            プラン：<span data-bind-text='init_data.service_start_req_date'></span>
-            SIM：<span data-bind-text='init_data.service_start_req_date'></span>
+        <div data-bind-show-cond="speed_update.status=1">
+            <h3>容量追加に失敗しました。</h3>
+        </div>
+
+        <div data-bind-show-cond="speed_update.status=2">
+            <h3>ただいまメンテナンス中です。</h3>
         </div>
 
         <div class="box-for-btn">

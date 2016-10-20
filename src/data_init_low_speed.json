@@ -1,7 +1,7 @@
 {
   "status": "0",
-  "init_data": {
-    "mode_low_speed": "1",
+  "speed_status": {
+    "mode_high_speed": "0",
     "enable_change_speed": "1"
   }
 }

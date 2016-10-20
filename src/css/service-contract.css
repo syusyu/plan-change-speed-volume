@@ -196,10 +196,9 @@ img.plan-speed-mode {
 
 table.plan-speed-change {
     line-height: 1.5;
-    width: 60%;
-    margin: auto;
+    width: 70%;
+    margin: 10px 0px 10px 20px;
 }
-
 table.plan-speed-change th {
     padding: 5px;
     font-weight: normal;
@@ -207,9 +206,61 @@ table.plan-speed-change th {
     border: solid 1px grey;
     text-align: center;
 }
-
 table.plan-speed-change td {
     padding: 5px;
     border: solid 1px grey;
     text-align: center;
+}
+
+.plan-speed-change-notice {
+    margin: 10px 0px 10px 20px;
+    padding: 10px;
+    width: 90%;
+    height: 100px;
+    border: solid 1px #204d74;
+    background-color: lightskyblue;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+.plan-speed-change-notice li {
+    padding: 2px 0px 4px 0px;
+}
+
+.plan-speed-change-btn-area {
+    width: 70%;
+    margin: 20px 20px 0px 0px;
+    text-align: right;
+}
+.plan-speed-change-check {
+    /*margin: 5px 20px 0px 0px;*/
+    font-size: 110%;
+    cursor: pointer;
+}
+.plan-speed-change-btn-wrapper {
+    overflow: hidden;
+}
+.plan-speed-change-btn-wrapper:after {
+    clear: both;
+}
+.plan-speed-change-btn-disable {
+    pointer-events: none;
+    background: url(../img/btn_plan_change_cancel_disable_off.gif);
+    width: 150px;
+    height: 40px;
+    margin-left: 5px;
+    display: block;
+    float: right;
+}
+.plan-speed-change-btn-enable {
+    background: url(../img/btn_plan_change_cancel_off.gif);
+    width: 150px;
+    height: 40px;
+    margin-left: 5px;
+    display: block;
+    float: right;
+}
+
+.plan-speed-change-back-btn {
+    /*width: 180px;*/
 }
