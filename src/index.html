@@ -40,12 +40,12 @@
                     </div>
                 </td>
                 <td>
-                    <div data-bind-show-id="init_data.enable_change_speed">
+                    <div data-bind-show-cond="init_data.enable_change_speed=1">
                         <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
                             通信モード切替
                         </a>
                     </div>
-                    <div data-bind-show-id="init_data.disable_change_speed">
+                    <div data-bind-show-cond="init_data.enble_change_speed=0">
                         通信モード切替はできません。
                     </div>
                 </td>
@@ -112,6 +112,7 @@
     </div>
 
     <div class="spa-page plan-speed-complete">
+        <div data-bind-show-id=""></div>
         <h3>通信速度を切り替えました。</h3>
 
         <div class="plan-change-explain">

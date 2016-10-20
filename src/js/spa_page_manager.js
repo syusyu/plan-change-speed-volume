@@ -375,6 +375,32 @@ spa_page_transition.shell = (function () {
                         }
                     }
                 });
+                $('*[data-bind-show-cond]').each(function (idx, obj) {
+                    var
+                        obj_key_cond_list, obj_key_list, cond, val;
+
+                    obj_key_cond_list = $(this).attr('data-bind-show-cond').split('=');
+                    if (obj_key_cond_list.length > 1) {
+                        obj_key_list = obj_key_cond_list[0].split('\.');
+                        cond = obj_key_cond_list[1];
+                    } else {
+                        obj_key_list = obj_key_cond_list.split('\.');
+                    }
+
+                    if (obj_key_list && obj_key_list[0] === key) {
+                        val = data[obj_key_list[1]];
+                        if (!val) {
+                            $(this).hide();
+                            spa_page_transition.getLogger().debug("show-cond.HIDE1!")
+                        } else if (cond && cond !== val) {
+                            spa_page_transition.getLogger().debug("show-cond.HIDE2!")
+                            $(this).hide();
+                        } else {
+                            spa_page_transition.getLogger().debug("show-cond.SHOW!")
+                            $(this).show();
+                        }
+                    }
+                });
             });
         });
 

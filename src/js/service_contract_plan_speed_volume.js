@@ -121,8 +121,8 @@ plan_speed_volume.data = (function () {
     var
         doAccessServerWrapper, PATH_INIT, PATH_UPDATE;
 
-    PATH_INIT = '/data_init_low_speed.json';
-    // PATH_INIT = '/data_init_disable.json';
+    // PATH_INIT = '/data_init_low_speed.json';
+    PATH_INIT = '/data_init_disable.json';
     PATH_UPDATE = '/data_update.json';
     // PATH_INIT = '/changeplan/init';
     // PATH_UPDATE = '/changeplan/update';
@@ -142,7 +142,7 @@ plan_speed_volume.data = (function () {
                     dfd_result.reject(data.message);
                 }
             });
-        }, 1000);
+        }, 300);
     };
 
     return {
