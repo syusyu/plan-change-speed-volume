@@ -297,7 +297,7 @@ spa_page_transition.shell = (function () {
             execAction($.uriAnchor.makeAnchorMap());
         });
 
-        $('[data-bind-show-cond],[data-bind-show-id]').each(function (idx, el) {
+        $('[data-bind-show-if],[data-bind-show-id]').each(function (idx, el) {
             $(el).hide();
         });
 
@@ -369,17 +369,19 @@ spa_page_transition.shell = (function () {
                         }
                     }
                 });
-                $('[data-bind-show-cond],[data-bind-show-id]').each(function (idx, el) {
+                $('[data-bind-show-if],[data-bind-show-id]').each(function (idx, el) {
                     var
                         pure_attr, obj_key_cond_list, obj_key_list, cond, val;
 
+                    spa_page_transition.getLogger().debug('data-bind-show-if.key', key);
                     if (!data) {
                         $(el).hide();
-                        console.warn('data-bind-show-cond.data is null');
+                        console.warn('data-bind-show-if.data is null');
                         return true;
                     }
 
-                    pure_attr = $(el).attr('data-bind-show-cond') ? $(el).attr('data-bind-show-cond') : $(el).attr('data-bind-show-id');
+                    pure_attr = $(el).attr('data-bind-show-if') ? $(el).attr('data-bind-show-if') : $(el).attr('data-bind-show-id');
+                    spa_page_transition.getLogger().debug('data-bind-show-if.pure_attr', pure_attr);
                     if (!pure_attr) {
                         return true;
                     }
@@ -390,6 +392,7 @@ spa_page_transition.shell = (function () {
                         cond = obj_key_cond_list[1];
                     }
 
+                    spa_page_transition.getLogger().debug('data-bind-show-if.obj_key_list', obj_key_list);
                     if (obj_key_list && obj_key_list[0] === key) {
                         val = data[obj_key_list[1]];
                         if (!val) {

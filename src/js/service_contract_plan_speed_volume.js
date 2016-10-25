@@ -151,6 +151,8 @@ plan_speed_volume.data = (function () {
     // PATH_UPDATE = '/data_update_succeeded_low.json';
     PATH_UPDATE = '/data_update_succeeded_high.json';
     // PATH_UPDATE = '/data_update_failed.json';
+    // PATH_INIT = '/planspeed/init';
+    // PATH_UPDATE = '/planspeed/update';
 
     doAccessServerWrapper = function (filePath, send_params, dfd_result, succeeded_func, failed_func) {
         setTimeout(function () {

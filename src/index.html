@@ -1,144 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Speed & Volume</title>
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/spa_page_manager.css"/>
-    <link rel="stylesheet" href="css/service-contract.css"/>
+	<meta charset="UTF-8">
+	<title>Speed & Volume</title>
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/spa_page_manager.css"/>
+	<link rel="stylesheet" href="css/service-contract.css"/>
 </head>
 <body>
 <div class="header">
-    <div class="container">
-        <h1><a href=""><img src="img/icon.png" class="logo">Change speed</a></h1>
-    </div><!-- container -->
+	<div class="container">
+		<h1><a href=""><img src="img/icon.png" class="logo">Change speed</a></h1>
+	</div><!-- container -->
 </div>
 
 <div id="plan-speed-volume-container" class="container">
 
-    <div class="spa-page plan-detail-nowloading visible">
-        <img src="img/now_loading_plan_change.gif" alt="Now loading"/>
-        <p id="plan-change-nowloading-text">Now loading</p>
-    </div>
+	<div class="spa-page plan-detail-nowloading visible">
+		<img src="img/now_loading_plan_change.gif" alt="Now loading"/>
+		<p id="plan-change-nowloading-text">Now loading</p>
+	</div>
 
-    <div class="spa-page plan-detail-main">
+	<div class="spa-page plan-detail-main">
 
-        <table>
-            <tr>
-                <th>高速通信モード</th>
-                <th>切り替え</th>
-            </tr>
-            <tr>
-                <td>
-                    <div data-bind-show-cond="speed.mode_high_speed=1">
-                        <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
-                    </div>
-                    <div data-bind-show-cond="speed.mode_high_speed=0">
-                        <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
-                    </div>
-                    <div data-bind-show-cond="speed.mode_high_speed=-1">
-                        不明
-                    </div>
-                </td>
-                <td>
-                    <div data-bind-show-cond="speed.enable_change_speed=1">
-                        <a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
-                            通信モード切替
-                        </a>
-                    </div>
-                    <div data-bind-show-cond="speed.enable_change_speed=0">
-                        通信モード切替はできません。
-                    </div>
-                </td>
-            </tr>
-        </table>
+		<table>
+			<tr>
+				<th>高速通信モード</th>
+				<th>切り替え</th>
+			</tr>
+			<tr>
+				<td>
+					<div data-bind-show-if="speed.mode_high_speed=1">
+						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
+					</div>
+					<div data-bind-show-if="speed.mode_high_speed=0">
+						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
+					</div>
+					<div data-bind-show-if="speed.mode_high_speed=-1">
+						不明
+					</div>
+				</td>
+				<td>
+					<div data-bind-show-if="speed.enable_change_speed=1">
+						<a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
+							通信モード切替
+						</a>
+					</div>
+					<div data-bind-show-if="speed.enable_change_speed=0">
+						通信モード切替はできません。
+					</div>
+				</td>
+			</tr>
+		</table>
 
-    </div>
+	</div>
 
-    <div class="spa-page plan-speed-change">
-        <h3>通信モード切り替え</h3>
+	<div class="spa-page plan-speed-change">
+		<h3>通信モード切り替え</h3>
 
-        <p>高速/低速の通信速度切替ができます。</p>
+		<p>高速/低速の通信速度切替ができます。</p>
 
-        <div class="plan-speed-change-notice">
-            <ul>
-                <li>高速通信可能残量が残っている場合に、高速/英速を切り替えることができます。</li>
-                <li>低速状態では、高速通信可能残量にかかわらず、最大200kbpsの通信速度になります。</li>
-                <li>3日あたりの通信量が一定の既定値を越えた場合、設定に関わらず速度制限される場合があります。</li>
-            </ul>
-        </div>
+		<div class="plan-speed-change-notice">
+			<ul>
+				<li>高速通信可能残量が残っている場合に、高速/英速を切り替えることができます。</li>
+				<li>低速状態では、高速通信可能残量にかかわらず、最大200kbpsの通信速度になります。</li>
+				<li>3日あたりの通信量が一定の既定値を越えた場合、設定に関わらず速度制限される場合があります。</li>
+			</ul>
+		</div>
 
-        <table class="plan-speed-change">
-            <tr>
-                <th>プラン名称</th>
-                <th>SIM回線番号</th>
-                <th>高速通信モード</th>
-            </tr>
-            <tr>
-                <td>テスト週間１Gプラン</td>
-                <td>090-2297-1778</td>
-                <td>
-                    <div data-bind-show-cond="speed.mode_high_speed=1">
-                        <img src="./img/plan_high_speed_on.png" class="plan-speed-mode"/>
-                    </div>
-                    <div data-bind-show-cond="speed.mode_high_speed=0">
-                        <img src="./img/plan_high_speed_off.png" class="plan-speed-mode"/>
-                    </div>
-                </td>
-            </tr>
-        </table>
+		<table class="plan-speed-change">
+			<tbody>
+			<tr>
+				<th>プラン名称</th>
+				<th>SIM回線番号</th>
+				<th>高速通信モード</th>
+			</tr>
+			<tr>
+				<td>テスト週間１Gプラン</td>
+				<td>090-2297-1778</td>
+				<td>
+					<div data-bind-show-if="speed.mode_high_speed=1">
+						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
+					</div>
+					<div data-bind-show-if="speed.mode_high_speed=0">
+						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 
-        <div class="plan-speed-change-btn-area">
-            <div>
-                <label class="plan-speed-change-check">
-                    <input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>
-                    通信速度を
-                    <span data-bind-show-id="speed.mode_high_speed=1">低速</span>
-                    <span data-bind-show-id="speed.mode_high_speed=0">高速</span>
-                    にする
-                </label>
-            </div>
-            <div class="plan-speed-change-btn-wrapper">
-                <a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
-                    <img src="img/btn_back_off.gif" alt="" class="plan-speed-change-back-btn" />
-                </a>
+		<div class="plan-speed-change-btn-area">
+			<div>
+				<label class="plan-speed-change-check">
+					<input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>
+					通信速度を
+					<span data-bind-show-id="speed.mode_high_speed=1">低速</span>
+					<span data-bind-show-id="speed.mode_high_speed=0">高速</span>
+					にする
+				</label>
+			</div>
+			<div class="plan-speed-change-btn-wrapper">
+				<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+					<img src="img/btn_back_off.gif" alt="" class="plan-speed-change-back-btn"/>
+				</a>
 
-                <a href="javascript:void(0);"
-                   data-action-click-dbupdate-id="update-speed"
-                   class="cancel-confirm-btn-disable"
-                   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
-                </a>
-            </div>
-        </div>
-    </div>
+				<a href="javascript:void(0);"
+				   data-action-click-dbupdate-id="update-speed"
+				   class="cancel-confirm-btn-disable"
+				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
+				</a>
+			</div>
+		</div>
+	</div>
 
-    <div class="spa-page plan-speed-complete">
-        <div data-bind-show-cond="speed_update.status=0">
-            <h3>通信速度を切り替えました。</h3>
-            <p>プラン：XXX</p>
-            <p>SIM：XXX-XXXX-XXXX</p>
-        </div>
+	<div class="spa-page plan-speed-complete">
+		<div data-bind-show-if="speed_update.status=0">
+			<h3>通信速度を切り替えました。</h3>
+			<p>プラン：XXX</p>
+			<p>SIM：XXX-XXXX-XXXX</p>
+		</div>
 
-        <div data-bind-show-cond="speed_update.status=1">
-            <h3>容量追加に失敗しました。</h3>
-        </div>
+		<div data-bind-show-if="speed_update.status=1">
+			<h3>容量追加に失敗しました。</h3>
+		</div>
 
-        <div data-bind-show-cond="speed_update.status=2">
-            <h3>ただいまメンテナンス中です。</h3>
-        </div>
+		<div data-bind-show-if="speed_update.status=2">
+			<h3>ただいまメンテナンス中です。</h3>
+		</div>
 
-        <div class="box-for-btn">
-            <a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
-                <img src="img/btn_back_off.gif" alt=""/>
-            </a>
-        </div>
-    </div>
+		<div class="box-for-btn">
+			<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+				<img src="img/btn_back_off.gif" alt=""/>
+			</a>
+		</div>
+	</div>
 
-    <input type="hidden" id="server-host" value="."/>
-    <input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510"/>
-    <input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511"/>
+	<div class="spa-page spa-error">
+		<div class="plan-change-explain">
+			エラーが発生しました。<br/>
+			お手数おかけしますが、再度ページを読み込み直してください。
+		</div>
+		<!--<div class="box" id="error-detail">-->
+		<!--<p id="error-detail-message"></p>-->
+		<!--</div>-->
+		<div class="box-for-btn">
+			<a href="javascript:void(0);">
+				<img src="img/btn_mytop_off.gif" alt=""/>
+			</a>
+		</div>
+	</div>
+
+	<input type="hidden" id="server-host" value="."/>
+	<input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510"/>
+	<input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511"/>
 </div>
 
 <script src="js/jquery/jquery.js"></script>
@@ -147,11 +164,11 @@
 <script src="js/spa_page_manager.js"></script>
 <script src="js/service_contract_plan_speed_volume.js"></script>
 <script>
-    $(function () {
-        var is_debug_mode = true;
-        plan_speed_volume.initModule($('#plan-speed-volume-container'), $('#server-host'), {}, is_debug_mode);
-        spa_page_transition.initModule($('#plan-speed-volume-container'), is_debug_mode);
-    });
+	$(function () {
+		var is_debug_mode = true;
+		plan_speed_volume.initModule($('#plan-speed-volume-container'), $('#server-host'), {}, is_debug_mode);
+		spa_page_transition.initModule($('#plan-speed-volume-container'), is_debug_mode);
+	});
 </script>
 </body>
 </html>
