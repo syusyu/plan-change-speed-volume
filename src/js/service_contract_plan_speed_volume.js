@@ -22,7 +22,7 @@ var plan_speed_volume = (function () {
         return logger;
     };
 
-    initLogger = function(is_debug_mode) {
+    initLogger = function (is_debug_mode) {
         logger = spa_log.createLogger(is_debug_mode, '### plan_speed_volume.LOG ### ');
     };
 
@@ -128,6 +128,8 @@ plan_speed_volume.model = (function () {
         plan_speed_volume.data.doAccessServerWrapper(serverHost + plan_speed_volume.data.PATH_INIT, send_params, dfd_result, function (data) {
             plan_speed_volume.getLogger().debug('initial data loaded! status', data.status);
             server_data.prepare(data);
+        }, function (data) {
+            spa_page_transition.shell.renderErrorPage(data.message);
         });
         plan_speed_volume.getLogger().debug('service.model.initModule executed.');
         spa_page_transition.prepareActivation(dfd_result.promise());
