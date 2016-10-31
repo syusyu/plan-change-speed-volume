@@ -18,7 +18,7 @@
 
 <div id="plan-speed-volume-container" class="container">
 
-	<div class="spa-page plan-detail-nowloading visible">
+	<div class="spa-page plan-change-nowloading visible">
 		<img src="img/now_loading_plan_change.gif" alt="Now loading"/>
 		<p id="plan-change-nowloading-text">Now loading</p>
 	</div>
@@ -78,8 +78,8 @@
 				<th>高速通信モード</th>
 			</tr>
 			<tr>
-				<td>テスト週間１Gプラン</td>
-				<td>090-2297-1778</td>
+				<td data-bind-text="PLAN.sim_no"></td>
+				<td data-bind-text="PLAN.plan_nm"></td>
 				<td>
 					<div data-bind-show-if="speed.mode_high_speed=1">
 						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
@@ -119,16 +119,24 @@
 	<div class="spa-page plan-speed-complete">
 		<div data-bind-show-if="speed_update.status=0">
 			<h3>通信速度を切り替えました。</h3>
-			<p>プラン：XXX</p>
-			<p>SIM：XXX-XXXX-XXXX</p>
+			<div class="plan-change-explain">
+				<p>プラン名称：<span data-bind-text="PLAN.plan_nm"></span></p>
+				<p>SIM回線番号：<span data-bind-text="PLAN.sim_no"></span></p>
+			</div>
 		</div>
 
 		<div data-bind-show-if="speed_update.status=1">
 			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>エラーが発生しました。</p>
+			</div>
 		</div>
 
 		<div data-bind-show-if="speed_update.status=2">
-			<h3>ただいまメンテナンス中です。</h3>
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>ただいまメンテナンス中です。</p>
+			</div>
 		</div>
 
 		<div class="box-for-btn">

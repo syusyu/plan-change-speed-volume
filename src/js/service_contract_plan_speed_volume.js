@@ -1,6 +1,7 @@
 var plan_speed_volume = (function () {
     var
         SPEED_DATA_EVENT = 'speed',
+        PLAN_DATA_EVENT = 'PLAN',
         UPDATE_SPEED_EVENT = 'speed_update',
         logger, getLogger,
         preparePage, updateSpeed,
@@ -38,6 +39,7 @@ var plan_speed_volume = (function () {
         spa_page_transition.addAction('update-speed', 'plan-speed-complete', updateSpeed);
 
         spa_page_transition.addEvent(SPEED_DATA_EVENT);
+        spa_page_transition.addEvent(PLAN_DATA_EVENT);
         spa_page_transition.addEvent(UPDATE_SPEED_EVENT);
 
         plan_speed_volume.model.initModule($server_host.val(), send_params_for_init);
@@ -50,6 +52,7 @@ var plan_speed_volume = (function () {
         getLogger: getLogger,
         initModule: initModule,
         SPEED_DATA_EVENT: SPEED_DATA_EVENT,
+        PLAN_DATA_EVENT: PLAN_DATA_EVENT,
         UPDATE_SPEED_EVENT: UPDATE_SPEED_EVENT,
         //VisibleForTesting
         initLogger: initLogger,
@@ -85,32 +88,40 @@ plan_speed_volume.model = (function () {
 
     server_data = (function () {
         var
-            speed_status, speed_update,
+            _speed_status, _speed_update,
+            _plan_data, get_plan_data,
             prepare, get_speed_status, get_speed_update
 
         prepare = function (data) {
-            speed_status = data.speed_status;
-            speed_update = data.speed_update;
+            _speed_status = data.speed_status;
+            _speed_update = data.speed_update;
+            _plan_data = data.plan_data;
         };
 
         get_speed_status = function () {
-            return speed_status;
+            return _speed_status;
         };
 
         get_speed_update = function () {
-            return speed_update;
+            return _speed_update;
+        };
+
+        get_plan_data = function () {
+            return _plan_data;
         };
 
         return {
             prepare: prepare,
             get_speed_status: get_speed_status,
             get_speed_update: get_speed_update,
+            get_plan_data: get_plan_data,
         }
     })();
 
     preparePage = function () {
         plan_speed_volume.getLogger().debug('model.preparePage is executed.');
         $(spa_page_transition.DATA_BIND_EVENT).trigger(plan_speed_volume.SPEED_DATA_EVENT, server_data.get_speed_status());
+        $(spa_page_transition.DATA_BIND_EVENT).trigger(plan_speed_volume.PLAN_DATA_EVENT, server_data.get_plan_data());
     };
 
     updateSpeed = function () {
@@ -138,7 +149,7 @@ plan_speed_volume.model = (function () {
         serverHost = server_host;
         setContractPlanId(send_params['contractPlanId']);
         plan_speed_volume.data.doAccessServerWrapper(serverHost + plan_speed_volume.data.PATH_INIT, send_params, dfd_result, function (data) {
-            plan_speed_volume.getLogger().debug('initial data loaded! status', data.status);
+            plan_speed_volume.getLogger().debug('initial data loaded! data', data);
             server_data.prepare(data);
         }, function (data) {
             spa_page_transition.shell.renderErrorPage(data.message);

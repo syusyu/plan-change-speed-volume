@@ -354,6 +354,29 @@ spa_page_transition.shell = (function () {
 
         $.each(Object.keys(spa_page_transition.DATA_BIND_EVENT), function (idx, key) {
             $(spa_page_transition.DATA_BIND_EVENT).on(key, function (e, data) {
+                $.each(['text', 'html'], function (attr_idx, attr) {
+                    $('[data-bind-' + attr + ']').each(function (idx, obj) {
+                        var
+                            bind_val,
+                            obj_key_list = $(this).attr('data-bind-' + attr).split('\.');
+
+                        if (obj_key_list && obj_key_list[0] === key) {
+                            bind_val = bindView.getBindVal(data, obj_key_list[1], $(this).attr('data-bind-format'));
+                            if (bind_val.isShow) {
+                                if (attr === 'text') {
+                                    $(this).text(bind_val.val);
+                                } else if (attr ==='html') {
+                                    $(this).html(bind_val.val);
+                                } else {
+                                    console.error("spa_page_transition.shell.DATA_BIND_EVENT Invalid attr! attr should be text or html!");
+                                }
+                                $(this).show();
+                            } else {
+                                $(this).hide();
+                            }
+                        }
+                    });
+                });
                 $('*[data-bind-id]').each(function (idx, obj) {
                     var
                         bind_val,
@@ -361,6 +384,7 @@ spa_page_transition.shell = (function () {
 
                     if (obj_key_list && obj_key_list[0] === key) {
                         bind_val = bindView.getBindVal(data, obj_key_list[1], $(this).attr('data-bind-format'));
+                        spa_page_transition.getLogger().debug('event.key', key, 'obj_key_list', obj_key_list, 'val', bind_val);
                         if (bind_val.isShow) {
                             $(this).text(bind_val.val);
                             $(this).show();
@@ -373,15 +397,15 @@ spa_page_transition.shell = (function () {
                     var
                         pure_attr, obj_key_cond_list, obj_key_list, cond, val;
 
-                    spa_page_transition.getLogger().debug('data-bind-show-if.key', key);
+                    // spa_page_transition.getLogger().debug('data-bind-show-if.key', key);
                     if (!data) {
                         $(el).hide();
-                        console.warn('data-bind-show-if.data is null');
+                        console.warn('data-bind-show-if.data is null. data-bind-show-if.key=', key);
                         return true;
                     }
 
                     pure_attr = $(el).attr('data-bind-show-if') ? $(el).attr('data-bind-show-if') : $(el).attr('data-bind-show-id');
-                    spa_page_transition.getLogger().debug('data-bind-show-if.pure_attr', pure_attr);
+                    // spa_page_transition.getLogger().debug('data-bind-show-if.pure_attr', pure_attr);
                     if (!pure_attr) {
                         return true;
                     }
@@ -392,7 +416,7 @@ spa_page_transition.shell = (function () {
                         cond = obj_key_cond_list[1];
                     }
 
-                    spa_page_transition.getLogger().debug('data-bind-show-if.obj_key_list', obj_key_list);
+                    // spa_page_transition.getLogger().debug('data-bind-show-if.obj_key_list', obj_key_list);
                     if (obj_key_list && obj_key_list[0] === key) {
                         val = data[obj_key_list[1]];
                         if (!val) {
