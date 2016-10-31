@@ -153,6 +153,7 @@
 		</div>
 	</div>
 
+	<input type="hidden" id="contract-plan-id" value="111"/>
 	<input type="hidden" id="server-host" value="."/>
 	<input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510"/>
 	<input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511"/>
@@ -165,9 +166,13 @@
 <script src="js/service_contract_plan_speed_volume.js"></script>
 <script>
 	$(function () {
-		var is_debug_mode = true;
-		plan_speed_volume.initModule($('#plan-speed-volume-container'), $('#server-host'), {}, is_debug_mode);
-		spa_page_transition.initModule($('#plan-speed-volume-container'), is_debug_mode);
+		if ($('#server-host').val()) {
+			var is_debug_mode = true;
+			plan_speed_volume.initModule($('#plan-speed-volume-container'), $('#server-host'), {'contractPlanId': $('#contract-plan-id').val()}, is_debug_mode);
+			spa_page_transition.initModule($('#plan-speed-volume-container'), is_debug_mode);
+		} else {
+			spa_page_transition.shell.doRenderPage('plan-detail-main');
+		}
 	});
 </script>
 </body>

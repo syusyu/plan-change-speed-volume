@@ -70,9 +70,18 @@ plan_speed_volume.shell = (function () {
 
 plan_speed_volume.model = (function () {
     var
+        contract_plan_id, setContractPlanId, getContractPlanId,
         serverHost, server_data,
         preparePage, updateSpeed,
         initModule;
+
+    getContractPlanId = function () {
+        return contract_plan_id;
+    };
+
+    setContractPlanId = function (_contract_plan_id) {
+        contract_plan_id = _contract_plan_id;
+    };
 
     server_data = (function () {
         var
@@ -104,10 +113,12 @@ plan_speed_volume.model = (function () {
         $(spa_page_transition.DATA_BIND_EVENT).trigger(plan_speed_volume.SPEED_DATA_EVENT, server_data.get_speed_status());
     };
 
-    updateSpeed = function (send_params) {
+    updateSpeed = function () {
         var
+            send_params,
             dfd_result = $.Deferred();
 
+        send_params = {'contractPlanId': getContractPlanId()};
         plan_speed_volume.getLogger().debug('model.updateSpeed is executed.');
         plan_speed_volume.data.doAccessServerWrapper(serverHost + plan_speed_volume.data.PATH_UPDATE, send_params, dfd_result, function (data) {
             plan_speed_volume.getLogger().debug('data updated! status', data.status);
@@ -125,6 +136,7 @@ plan_speed_volume.model = (function () {
             dfd_result = $.Deferred();
 
         serverHost = server_host;
+        setContractPlanId(send_params['contractPlanId']);
         plan_speed_volume.data.doAccessServerWrapper(serverHost + plan_speed_volume.data.PATH_INIT, send_params, dfd_result, function (data) {
             plan_speed_volume.getLogger().debug('initial data loaded! status', data.status);
             server_data.prepare(data);
@@ -137,6 +149,8 @@ plan_speed_volume.model = (function () {
 
     return {
         preparePage: preparePage,
+        getContractPlanId: getContractPlanId,
+        setContractPlanId: setContractPlanId,
         updateSpeed: updateSpeed,
         initModule: initModule,
     }

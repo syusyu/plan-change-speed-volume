@@ -420,6 +420,7 @@ spa_page_transition.shell = (function () {
     return {
         prepareActivation: prepareActivation,
         renderErrorPage: renderErrorPage,
+        doRenderPage: doRenderPage,
         initModule: initModule,
         //VisibleForTesting
         anchorGetter: anchorGetter,
