@@ -377,22 +377,6 @@ spa_page_transition.shell = (function () {
                         }
                     });
                 });
-                $('*[data-bind-id]').each(function (idx, obj) {
-                    var
-                        bind_val,
-                        obj_key_list = $(this).attr('data-bind-id').split('\.');
-
-                    if (obj_key_list && obj_key_list[0] === key) {
-                        bind_val = bindView.getBindVal(data, obj_key_list[1], $(this).attr('data-bind-format'));
-                        spa_page_transition.getLogger().debug('event.key', key, 'obj_key_list', obj_key_list, 'val', bind_val);
-                        if (bind_val.isShow) {
-                            $(this).text(bind_val.val);
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    }
-                });
                 $('[data-bind-show-if],[data-bind-show-id]').each(function (idx, el) {
                     var
                         pure_attr, obj_key_cond_list, obj_key_list, cond, val;
