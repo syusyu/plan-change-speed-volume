@@ -24,7 +24,6 @@
 	</div>
 
 	<div class="spa-page plan-detail-main">
-
 		<table>
 			<tr>
 				<th>高速通信モード</th>
@@ -32,29 +31,28 @@
 			</tr>
 			<tr>
 				<td>
-					<div data-bind-show-if="speed.mode_high_speed=1">
+					<div data-bind-show-if="SPEED.mode_high_speed=1">
 						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
 					</div>
-					<div data-bind-show-if="speed.mode_high_speed=0">
+					<div data-bind-show-if="SPEED.mode_high_speed=0">
 						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
 					</div>
-					<div data-bind-show-if="speed.mode_high_speed=-1">
+					<div data-bind-show-if="SPEED.mode_high_speed=-1">
 						不明
 					</div>
 				</td>
 				<td>
-					<div data-bind-show-if="speed.enable_change_speed=1">
+					<div data-bind-show-if="SPEED.enable_change_speed=1">
 						<a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
 							通信モード切替
 						</a>
 					</div>
-					<div data-bind-show-if="speed.enable_change_speed=0">
+					<div data-bind-show-if="SPEED.enable_change_speed=0">
 						通信モード切替はできません。
 					</div>
 				</td>
 			</tr>
 		</table>
-
 	</div>
 
 	<div class="spa-page plan-speed-change">
@@ -81,10 +79,10 @@
 				<td data-bind-text="PLAN.sim_no"></td>
 				<td data-bind-text="PLAN.plan_nm"></td>
 				<td>
-					<div data-bind-show-if="speed.mode_high_speed=1">
+					<div data-bind-show-if="SPEED.mode_high_speed=1">
 						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
 					</div>
-					<div data-bind-show-if="speed.mode_high_speed=0">
+					<div data-bind-show-if="SPEED.mode_high_speed=0">
 						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
 					</div>
 				</td>
@@ -97,8 +95,8 @@
 				<label class="plan-speed-change-check">
 					<input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>
 					通信速度を
-					<span data-bind-show-id="speed.mode_high_speed=1">低速</span>
-					<span data-bind-show-id="speed.mode_high_speed=0">高速</span>
+					<span data-bind-show-id="SPEED.mode_high_speed=1">低速</span>
+					<span data-bind-show-id="SPEED.mode_high_speed=0">高速</span>
 					にする
 				</label>
 			</div>
@@ -117,7 +115,7 @@
 	</div>
 
 	<div class="spa-page plan-speed-complete">
-		<div data-bind-show-if="speed_update.status=0">
+		<div data-bind-show-if="SPEED_UPDATE.status=0">
 			<h3>通信速度を切り替えました。</h3>
 			<div class="plan-change-explain">
 				<p>プラン名称：<span data-bind-text="PLAN.plan_nm"></span></p>
@@ -125,14 +123,14 @@
 			</div>
 		</div>
 
-		<div data-bind-show-if="speed_update.status=1">
+		<div data-bind-show-if="SPEED_UPDATE.status=1">
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>エラーが発生しました。</p>
 			</div>
 		</div>
 
-		<div data-bind-show-if="speed_update.status=2">
+		<div data-bind-show-if="SPEED_UPDATE.status=2">
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>ただいまメンテナンス中です。</p>
@@ -151,12 +149,10 @@
 			エラーが発生しました。<br/>
 			お手数おかけしますが、再度ページを読み込み直してください。
 		</div>
-		<!--<div class="box" id="error-detail">-->
-		<!--<p id="error-detail-message"></p>-->
-		<!--</div>-->
 		<div class="box-for-btn">
 			<a href="javascript:void(0);">
-				<img src="img/btn_mytop_off.gif" alt=""/>
+				マイページに戻る(画像待ち)
+				<!--<img src="img/btn_mytop_off.gif" alt="Err page"/>-->
 			</a>
 		</div>
 	</div>
@@ -174,13 +170,8 @@
 <script src="js/service_contract_plan_speed_volume.js"></script>
 <script>
 	$(function () {
-		if ($('#server-host').val()) {
-			var is_debug_mode = true;
-			plan_speed_volume.initModule($('#plan-speed-volume-container'), $('#server-host'), {'contractPlanId': $('#contract-plan-id').val()}, is_debug_mode);
-			spa_page_transition.initModule($('#plan-speed-volume-container'), is_debug_mode);
-		} else {
-			spa_page_transition.shell.doRenderPage('plan-detail-main');
-		}
+		is_debug_mode = true;
+		plan_speed_volume.initModule($('#server-host'), {'contractPlanId': $('#contract-plan-id').val()}, is_debug_mode);
 	});
 </script>
 </body>
