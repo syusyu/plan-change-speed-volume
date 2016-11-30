@@ -2,7 +2,7 @@
   "status": "0",
   "speed_status": {
     "mode_high_speed": "1",
-    "enable_change_speed": "0"
+    "enable_change_speed": "1"
   },
   "speed_update": {
     "status": "0"
