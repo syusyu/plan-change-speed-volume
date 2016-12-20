@@ -28,6 +28,7 @@
 			<tr>
 				<th>高速通信モード</th>
 				<th>切り替え</th>
+				<th>容量追加</th>
 			</tr>
 			<tr>
 				<td>
@@ -51,8 +52,19 @@
 						通信モード切替はできません。
 					</div>
 				</td>
+				<td>
+					<div data-bind-show-if="VOLUME.enable_add_volume=1">
+						容量追加
+					</div>
+					<div data-bind-show-if="VOLUME.enable_add_volume=0">
+						容量追加はできません。
+					</div>
+				</td>
 			</tr>
 		</table>
+	</div>
+
+	<div class="spa-page plan-volume-add">
 	</div>
 
 	<div class="spa-page plan-speed-change">
