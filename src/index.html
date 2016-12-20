@@ -24,7 +24,22 @@
 	</div>
 
 	<div class="spa-page plan-detail-main">
-		<table>
+		<table class="plan-speed-change">
+			<tbody>
+			<tr>
+				<th>今月の通信量</th>
+				<th>今月の高速通信可能残量</th>
+				<th>前月の通信量</th>
+			</tr>
+			<tr>
+				<td>1.95GB</td>
+				<td>0GB</td>
+				<td>4GB</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<table class="plan-speed-change">
 			<tr>
 				<th>高速通信モード</th>
 				<th>切り替え</th>
@@ -54,7 +69,9 @@
 				</td>
 				<td>
 					<div data-bind-show-if="VOLUME.enable_add_volume=1">
-						容量追加
+						<a href="javascript:void(0);" data-action-click-id="next-to-add-volume">
+							容量追加
+						</a>
 					</div>
 					<div data-bind-show-if="VOLUME.enable_add_volume=0">
 						容量追加はできません。
@@ -62,9 +79,6 @@
 				</td>
 			</tr>
 		</table>
-	</div>
-
-	<div class="spa-page plan-volume-add">
 	</div>
 
 	<div class="spa-page plan-speed-change">
@@ -153,6 +167,48 @@
 			<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
 				<img src="img/btn_back_off.gif" alt=""/>
 			</a>
+		</div>
+	</div>
+
+	<div class="spa-page plan-volume-add">
+		<h3>容量追加</h3>
+
+		<table class="plan-speed-change">
+			<tbody>
+			<tr>
+				<th>今月の通信量</th>
+				<th>今月の高速通信可能残量</th>
+				<th>前月の通信量</th>
+			</tr>
+			<tr>
+				<td>1.95GB</td>
+				<td>0GB</td>
+				<td>4GB</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<select id="YYYY" data-bind-loop="VOLUME.volume_pack_list">
+			<option data-bind-id="VOLUME.volume_pack_list.id"></option>
+		</select>
+
+		<div class="plan-speed-change-btn-area">
+			<div>
+				<label class="plan-speed-change-check">
+					<input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>上記内容で容量追加を行う
+				</label>
+			</div>
+			<div class="plan-speed-change-btn-wrapper">
+				<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+					<img src="img/btn_back_off.gif" alt="" class="plan-speed-change-back-btn"/>
+				</a>
+
+				<a href="javascript:void(0);"
+				   data-action-click-dbupdate-id="update-volume"
+				   class="cancel-confirm-btn-disable"
+				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
+				</a>
+			</div>
 		</div>
 	</div>
 

@@ -1,14 +1,19 @@
 {
   "status": "0",
-  "speed_status": {
-    "mode_high_speed": "0",
-    "enable_change_speed": "1"
-  },
   "plan_data": {
     "plan_nm": "テスト週間１Gプラン x WonderLink AAAA Plan test mode",
     "sim_no": "090-2297-1778"
   },
+  "speed_status": {
+    "mode_high_speed": "0",
+    "enable_change_speed": "1"
+  },
   "volume_status": {
-    "enable_add_volume": "1"
+    "enable_add_volume": "1",
+    "volume_pack_list": [
+      {"id":"100", "volume": "500M", "term": "9月末", "price": "500円"},
+      {"id":"200", "volume": "1G", "term": "9月末", "price": "1000円"},
+      {"id":"300", "volume": "3G", "term": "9月末", "price": "3000円"}
+    ]
   }
 }
