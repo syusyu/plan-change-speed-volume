@@ -99,3 +99,7 @@
 .spa-update-btn-disabled {
     pointer-events: none;
 }
+
+div[data-bind-show-if] {
+    display: none;
+}
