@@ -361,7 +361,8 @@ var spa_page_data = (function () {
                 data: data,
                 dataType: 'json',
                 success: dfd.resolve,
-                error: dfd.reject
+                error: dfd.reject,
+                cache: false
             });
 
             return dfd.promise();
@@ -577,7 +578,7 @@ spa_page_transition.data_bind = (function () {
     'use strict';
     var
         ENUM_TOGGLE_ACTION_TYPE = {ADD: 'ADD', REMOVE: 'REMOVE', TOGGLE: 'TOGGLE'},
-        BIND_ATTR_REPLACED = 'data-bind-replaced',
+        BIND_ATTR_REPLACED_KEY = 'data-bind-replaced-key',
         evt_data_bind_view,
         run;
 
@@ -593,11 +594,14 @@ spa_page_transition.data_bind = (function () {
             get_toggle_class_list,
             trigger,
 
-            BIND_ATTR_TYPES = ['id', 'text', 'html', 'val', 'loop'];
+            BIND_ATTR_TYPES = ['id', 'text', 'text1', 'text2', 'text3', 'html', 'val', 'loop', 'selected'];
 
         _init_bind_prop_map = function (key, data) {
-            $('[' + BIND_ATTR_REPLACED + ']').each(function (idx, el) {
-                $(el).remove();
+            $('[' + BIND_ATTR_REPLACED_KEY + ']').each(function (idx, el) {
+                var replaced_key = $(el).attr(BIND_ATTR_REPLACED_KEY);
+                if (spa_page_util.startsWith(replaced_key, key)) {
+                    $(el).remove();
+                }
             });
             _bind_prop_map = {};
             _create_bind_prop_map(key, data);
@@ -680,15 +684,26 @@ spa_page_transition.data_bind = (function () {
 
         _settle_bind_val = function ($el, attr, data, prop_key) {
             var
+                prev_val,
                 format = $el.attr('data-bind-format'),
+                separator = $el.attr('data-bind-text-separator') || '',
                 val = _format_bind_val(data, prop_key, format);
 
             if (attr === 'text') {
                 $el.text(val);
+            } else if (attr === 'text1' || attr === 'text2' || attr === 'text3') {
+                prev_val = $el.text();
+                if (prev_val) {
+                    $el.text(prev_val + separator + val);
+                } else {
+                    $el.text(val);
+                }
             } else if (attr === 'html') {
                 $el.html(val);
             } else if (attr === 'val') {
                 $el.val(val);
+            } else if (attr === 'selected') {
+                $el.attr(attr, 'selected');
             } else {
                 $el.attr(attr, val);
             }
@@ -769,7 +784,7 @@ spa_page_transition.data_bind = (function () {
 
                 if (bind_attr) {
                     $el.attr(bind_attr_type, bind_attr.replace(loop_prop_key, loop_prop_key + '$' + i));
-                    $el.attr(BIND_ATTR_REPLACED, true);
+                    $el.attr(BIND_ATTR_REPLACED_KEY, loop_prop_key);
                 }
             });
         };
@@ -847,8 +862,6 @@ spa_page_transition.data_bind = (function () {
                     }
                     if (all_props[el_prop_key]) {
                         _settle_bind_val($this, attr, data, el_prop_key);
-                    } else if (!$this.attr('data-bind-loop')) {
-                        $this.hide();
                     }
                 });
             });

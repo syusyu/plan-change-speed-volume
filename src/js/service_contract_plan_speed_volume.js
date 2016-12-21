@@ -53,7 +53,7 @@ var plan_speed_volume = (function () {
                 var result = Object.create(callbackFuncProto);
                 result.callbackFunc = function (observer, anchor_map, data) {
                     callbackFuncProto.callbackFunc.apply(this, arguments);
-                    observer.trigger('SPEED_UPDATE', server_data.get_speed_update());
+                    observer.trigger('VOLUME_UPDATE', server_data.get_speed_update());
                 };
                 return result;
             },

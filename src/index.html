@@ -132,7 +132,7 @@
 				</a>
 
 				<a href="javascript:void(0);"
-				   data-action-click-dbupdate-id="update-speed"
+				   data-action-click-id="update-speed"
 				   class="cancel-confirm-btn-disable"
 				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
 				</a>
@@ -188,9 +188,13 @@
 			</tbody>
 		</table>
 
-		<select id="YYYY" data-bind-loop="VOLUME.volume_pack_list">
-			<option data-bind-id="VOLUME.volume_pack_list.id"></option>
-		</select>
+
+		<div class="plan-speed-change-btn-area">
+			<select data-bind-loop="VOLUME.volume_pack_list">
+				<option data-bind-id="VOLUME.volume_pack_list.id" data-bind-selected="VOLUME.volume_pack_list.selected" data-bind-text="VOLUME.volume_pack_list.text"
+						data-bind-text1="VOLUME.volume_pack_list.volume" data-bind-text2="VOLUME.volume_pack_list.term" data-bind-text3="VOLUME.volume_pack_list.price" data-bind-text-separator=" / "></option>
+			</select>
+		</div>
 
 		<div class="plan-speed-change-btn-area">
 			<div>
@@ -204,7 +208,7 @@
 				</a>
 
 				<a href="javascript:void(0);"
-				   data-action-click-dbupdate-id="update-volume"
+				   data-action-click-id="update-volume"
 				   class="cancel-confirm-btn-disable"
 				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
 				</a>
@@ -237,10 +241,10 @@
 <script src="js/spa_page_manager.js"></script>
 <script src="js/service_contract_plan_speed_volume.js"></script>
 <script>
-	$(function () {
-		var is_debug_mode = true;
-		plan_speed_volume.initModule($('#server-host'), {'contractPlanId': $('#contract-plan-id').val()}, is_debug_mode);
-	});
+    $(function () {
+        var is_debug_mode = true;
+        plan_speed_volume.initModule($('#server-host'), {'contractPlanId': $('#contract-plan-id').val()}, is_debug_mode);
+    });
 </script>
 </body>
 </html>
