@@ -190,8 +190,11 @@
 
 
 		<div class="plan-speed-change-btn-area">
-			<select data-bind-loop="VOLUME.volume_pack_list">
-				<option data-bind-id="VOLUME.volume_pack_list.id" data-bind-selected="VOLUME.volume_pack_list.selected" data-bind-text="VOLUME.volume_pack_list.text"
+			<select data-bind-loop="VOLUME.volume_pack_list" data-action-change-id="select-volume-pack" data-action-change-params="val">
+				<option data-bind-id="VOLUME.volume_pack_list.id"
+						data-bind-val="VOLUME.volume_pack_list.id"
+						data-bind-selected="VOLUME.volume_pack_list.selected"
+						data-bind-text="VOLUME.volume_pack_list.text"
 						data-bind-text1="VOLUME.volume_pack_list.volume" data-bind-text2="VOLUME.volume_pack_list.term" data-bind-text3="VOLUME.volume_pack_list.price" data-bind-text-separator=" / "></option>
 			</select>
 		</div>
@@ -199,7 +202,7 @@
 		<div class="plan-speed-change-btn-area">
 			<div>
 				<label class="plan-speed-change-check">
-					<input type="checkbox" data-view-toggle-trigger="cancel-confirm"/>上記内容で容量追加を行う
+					<input type="checkbox" id="volume-add-agree" data-view-toggle-trigger="cancel-confirm"/>上記内容で容量追加を行う
 				</label>
 			</div>
 			<div class="plan-speed-change-btn-wrapper">
@@ -213,6 +216,35 @@
 				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
 				</a>
 			</div>
+		</div>
+	</div>
+
+	<div class="spa-page plan-volume-complete">
+		<div data-bind-show-if="VOLUME_UPDATE.status=0">
+			<h3>容量を追加しました。</h3>
+			<div class="plan-change-explain">
+				<p data-bind-text1="SELECTED_VOLUME_PACK.volume"></p>
+			</div>
+		</div>
+
+		<div data-bind-show-if="VOLUME_UPDATE.status=1">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>エラーが発生しました。</p>
+			</div>
+		</div>
+
+		<div data-bind-show-if="VOLUME_UPDATE.status=2">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>ただいまメンテナンス中です。</p>
+			</div>
+		</div>
+
+		<div class="box-for-btn">
+			<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+				<img src="img/btn_back_off.gif" alt=""/>
+			</a>
 		</div>
 	</div>
 

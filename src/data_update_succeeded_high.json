@@ -6,6 +6,9 @@
   },
   "speed_update": {
     "status": "0"
+  },
+  "volume_update": {
+    "status": "0"
   }
 
 }

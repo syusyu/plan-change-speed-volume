@@ -382,11 +382,11 @@ spa_page_transition.shell = (function () {
 
     anchorGetter = (function () {
         var
-            createAnchorMap, createSelfAnchorMap, createBindAnchorMap;
+            createAnchorMap, createSelfAnchorMap, createSelfKeyAnchorMap, createBindAnchorMap;
 
         createAnchorMap = function ($el, attr_action_id, attr_action_params) {
             var
-                str_params, params, params_bind,
+                str_params, params, params_bind, params_key,
                 anchor_map = {};
 
             //action_id
@@ -399,6 +399,8 @@ spa_page_transition.shell = (function () {
                 params = createSelfAnchorMap(str_params);
                 params_bind = createBindAnchorMap($el, str_params);
                 $.extend(params, params_bind);
+                params_key = createSelfKeyAnchorMap($el, str_params);
+                $.extend(params, params_key);
 
                 $.each(params, function (key, value) {
                     anchor_map[key] = value;
@@ -406,6 +408,27 @@ spa_page_transition.shell = (function () {
             }
 
             return anchor_map;
+        };
+
+        createSelfKeyAnchorMap = function ($el, str_params) {
+            var result = '';
+
+            if (spa_page_util.contains(str_params, '=')) {
+                return {};
+            }
+            var keys = str_params.split(',');
+            $.each(keys, function (idx, key) {
+                var
+                    val;
+                if (key === 'val') {
+                    val = $el.val();
+                } else if (key === 'id') {
+                    val = $el.attr('id');
+                }
+                result += val ? ('"' + key + '":"' + val + '"') : '';
+                result += (result && idx < keys.length - 1 ? ',' : '');
+            })
+            return JSON.parse('{' + result + '}');
         };
 
         createSelfAnchorMap = function (str_params) {
@@ -1022,13 +1045,16 @@ var spa_page_util = (function () {
         },
         startsWith = function (str, prefix) {
             return str.indexOf(prefix) === 0;
+        },
+        contains = function (str, target) {
+            return str.indexOf(target) != -1;
         };
-
 
     return {
         exists: exists,
         isEmpty: isEmpty,
         isNotEmpty: isNotEmpty,
         startsWith: startsWith,
+        contains: contains,
     }
 })();
