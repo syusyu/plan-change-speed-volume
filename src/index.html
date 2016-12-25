@@ -133,7 +133,7 @@
 
 				<a href="javascript:void(0);"
 				   data-action-click-id="update-speed"
-				   class="cancel-confirm-btn-disable" data-bind-show-if="SPEED.mode_high_speed=1"
+				   class="cancel-confirm-btn-disable" data-bind-show-if="SPEED.enable_change_speed=1"
 				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
 				</a>
 			</div>
@@ -190,7 +190,8 @@
 
 
 		<div class="plan-speed-change-btn-area">
-			<select data-bind-loop="VOLUME.volume_pack_list" data-action-change-id="select-volume-pack" data-action-change-params="val">
+			<select id ="volume-pack-list"
+					data-bind-loop="VOLUME.volume_pack_list" data-action-change-id="select-volume-pack" data-action-change-params="val">
 				<option data-bind-id="VOLUME.volume_pack_list.id"
 						data-bind-val="VOLUME.volume_pack_list.id"
 						data-bind-selected="VOLUME.volume_pack_list.selected"

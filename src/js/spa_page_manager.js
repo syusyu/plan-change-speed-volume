@@ -243,7 +243,7 @@ spa_page_transition.func = (function () {
             try {
                 this_obj.main_func(this_obj, anchor_map, data);
             } catch (e) {
-                console.warn(e.message ? e.message : e);
+                console.error(e.message ? e.message : e, e);
                 return $.Deferred().reject(e.message ? {'err_mes': e.message} : e);
             }
             if (this_obj.stays) {
@@ -781,6 +781,9 @@ spa_page_transition.data_bind = (function () {
                 cloned_elements = [], clone_target_elements = [],
                 bind_attr_type_selectors = _each_attr_type_selectors();
 
+            if (spa_page_util.isEmpty(list)) {
+                return [];
+            }
             for (i = 0; i < list.length; i++) {
                 $(el).children().each(function (idx, el_child) {
                     $el_cloned = $(el_child).clone(true);

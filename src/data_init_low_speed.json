@@ -4,8 +4,8 @@
     "sim_no": "090-2297-1778"
   },
   "speed_status": {
-    "mode_high_speed": "1",
-    "enable_change_speed": "0"
+    "mode_high_speed": "0",
+    "enable_change_speed": "1"
   },
   "volume_status": {
     "enable_add_volume": "1",
