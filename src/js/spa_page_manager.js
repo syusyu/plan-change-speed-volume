@@ -175,31 +175,30 @@ spa_page_transition.model = (function () {
     };
 
     execAction = function (anchor_map) {
-        var
-            i = 0,
-            promise = $.Deferred().resolve().promise(),
-            action = findAction(anchor_map);
-
-        return execFunc(action.funcList, anchor_map, promise, i);
+        return execFunc(findAction(anchor_map).funcList, anchor_map);
     };
 
-    execFunc = function (func_list, anchor_map, promise, idx) {
-        if (!func_list || func_list.length < 1) {
-            return promise;
-        }
-        promise.then(function (data) {
-            var
-                func = func_list[idx];
+    execFunc = function (func_list, anchor_map) {
+        var
+            i, p,
+            f_idx = 1;
 
-            promise = func.execute(anchor_map);
-            if (++idx < func_list.length) {
-                promise = execFunc(func_list, anchor_map, promise, idx);
-            }
-            return promise;
-        }, function (data) {
-            return $.Deferred().reject(data).promise();
-        });
-        return promise;
+        if (spa_page_util.isEmpty(func_list)) {
+            return $.Deferred().resolve().promise();
+        }
+
+        p = func_list[0].execute(anchor_map);
+
+
+        for (i = 1; i < func_list.length; i++) {
+            p = p.then(function (data) {
+                return func_list[f_idx++].execute(anchor_map);
+            }, function (data) {
+                return $.Deferred().reject(data).promise();
+            });
+        }
+
+        return p;
     };
 
     findAction = function (anchor_map) {
@@ -248,7 +247,10 @@ spa_page_transition.func = (function () {
                 return $.Deferred().reject(e.message ? {'err_mes': e.message} : e);
             }
             if (this_obj.stays) {
-                return $.Deferred().reject({'stays': this_obj.stays});
+                //Initialize stays here.
+                this_obj.stays = false;
+                spa_page_transition.getLogger().debug('exec_main_func.stays is on.');
+                return $.Deferred().reject({'stays': true});
             } else {
                 return $.Deferred().resolve();
             }
@@ -309,6 +311,7 @@ spa_page_transition.func = (function () {
                         d.reject(data_main_func);
                     });
                 }, function (data) {
+                    spa_page_transition.getLogger().error('ajaxFunc.serverAccess failed. data', data);
                     d.reject(data);
                 }
             );
@@ -983,32 +986,43 @@ var spa_log = (function () {
         isDebugMode: true,
         logPrefix: '',
         debug: function () {
+            var log;
+
+            if (!this.isDebugMode) {
+                return;
+            }
+            log = this.create_log(arguments);
+            if (spa_page_util.isNotEmpty(log)) {
+                console.log(log);
+            }
+        },
+        error: function () {
+            var log = this.create_log(arguments);
+            if (spa_page_util.isNotEmpty(log)) {
+                console.error(log);
+            }
+        },
+        create_log: function (logs) {
             var
                 log, i, is_left, is_right, is_last,
                 result = '';
 
-            if (arguments.length < 1) {
+            if (logs.length < 1) {
                 console.error('No arguments...')
                 return;
             }
-            if (!this.isDebugMode) {
-                return;
-            }
 
-            result += this.logPrefix + ' ';
-
-            for (i = 0; i < arguments.length; i++) {
-                is_last = (i === arguments.length - 1);
+            for (i = 0; i < logs.length; i++) {
+                is_last = (i === logs.length - 1);
                 is_right = (i % 2 === 1);
 
                 log = (is_right ? ' = ' : '');
-                log += arguments[i] instanceof Object ? JSON.stringify(arguments[i], null, '\t') : arguments[i];
+                log += logs[i] instanceof Object ? JSON.stringify(logs[i], null, '\t') : logs[i];
                 log += (is_right && !is_last ? ', ' : '');
 
                 result += log;
             }
-
-            console.log(result);
+            return result;
         }
     };
 

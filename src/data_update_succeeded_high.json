@@ -1,11 +1,19 @@
 {
-  "status": "0",
   "speed_status": {
     "mode_high_speed": "1",
     "enable_change_speed": "1"
   },
   "speed_update": {
     "status": "0"
+  },
+  "volume_status": {
+    "enable_add_volume": "1",
+    "volume_pack_list": [
+      {"id":"-1", "text": "選択してください", "selected": "selected"},
+      {"id":"100", "volume": "500M", "term": "9月末", "price": "500円"},
+      {"id":"200", "volume": "1G", "term": "9月末", "price": "1000円"},
+      {"id":"300", "volume": "3G", "term": "9月末", "price": "3000円"}
+    ]
   },
   "volume_update": {
     "status": "0"

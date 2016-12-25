@@ -133,7 +133,7 @@
 
 				<a href="javascript:void(0);"
 				   data-action-click-id="update-speed"
-				   class="cancel-confirm-btn-disable"
+				   class="cancel-confirm-btn-disable" data-bind-show-if="SPEED.mode_high_speed=1"
 				   data-view-toggle-class="cancel-confirm, cancel-confirm-btn-disable:inverse, cancel-confirm-btn-enable">
 				</a>
 			</div>
@@ -223,7 +223,9 @@
 		<div data-bind-show-if="VOLUME_UPDATE.status=0">
 			<h3>容量を追加しました。</h3>
 			<div class="plan-change-explain">
-				<p data-bind-text1="SELECTED_VOLUME_PACK.volume"></p>
+				<span data-bind-text="SELECTED_VOLUME_PACK.volume"></span> /
+				<span data-bind-text="SELECTED_VOLUME_PACK.term"></span> /
+				<span data-bind-text="SELECTED_VOLUME_PACK.price"></span>
 			</div>
 		</div>
 

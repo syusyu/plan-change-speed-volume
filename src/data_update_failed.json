@@ -1,10 +1,12 @@
 {
-  "status": "0",
   "speed_status": {
     "mode_high_speed": "-1",
     "enable_change_speed": "0"
   },
   "speed_update": {
+    "status": "1"
+  },
+  "volume_update": {
     "status": "1"
   }
 }
