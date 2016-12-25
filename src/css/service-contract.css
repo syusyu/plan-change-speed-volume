@@ -215,12 +215,13 @@ table.plan-speed-change td {
     padding: 2px 0px 4px 0px;
 }
 
+/*********** plan's speed change button area ***********/
 .plan-speed-change-btn-area {
     width: 70%;
     margin: 20px 20px 0px 0px;
     text-align: right;
 }
-.plan-speed-change-check {
+.plan-speed-change-agree {
     /*margin: 5px 20px 0px 0px;*/
     font-size: 110%;
     cursor: pointer;
@@ -237,7 +238,7 @@ table.plan-speed-change td {
 }
 
 
-/* toggle button */
+/*********** toggle button ***********/
 .toggle-btn-disable {
     pointer-events: none;
     background: url(../img/btn_plan_change_cancel_disable_off.gif);
