@@ -145,23 +145,6 @@ table.new-plan-detail td.last {
 .plan-change-cancel-btn-wrapper:after {
     clear: both;
 }
-.cancel-confirm-btn-disable {
-    pointer-events: none;
-    background: url(../img/btn_plan_change_cancel_disable_off.gif);
-    width: 150px;
-    height: 40px;
-    margin-left: 5px;
-    display: block;
-    float: right;
-}
-.cancel-confirm-btn-enable {
-    background: url(../img/btn_plan_change_cancel_off.gif);
-    width: 150px;
-    height: 40px;
-    margin-left: 5px;
-    display: block;
-    float: right;
-}
 
 .plan-accordion-header {
     width: inherit;
@@ -248,7 +231,14 @@ table.plan-speed-change td {
 .plan-speed-change-btn-wrapper:after {
     clear: both;
 }
-.plan-speed-change-btn-disable {
+
+.plan-speed-change-back-btn {
+    /*width: 180px;*/
+}
+
+
+/* toggle button */
+.toggle-btn-disable {
     pointer-events: none;
     background: url(../img/btn_plan_change_cancel_disable_off.gif);
     width: 150px;
@@ -257,7 +247,7 @@ table.plan-speed-change td {
     display: block;
     float: right;
 }
-.plan-speed-change-btn-enable {
+.toggle-btn-enable {
     background: url(../img/btn_plan_change_cancel_off.gif);
     width: 150px;
     height: 40px;
@@ -265,7 +255,12 @@ table.plan-speed-change td {
     display: block;
     float: right;
 }
-
-.plan-speed-change-back-btn {
-    /*width: 180px;*/
+.plan-speed-change-btn-disable {
 }
+.plan-speed-change-btn-enable {
+}
+.plan-volume-add-btn-disable {
+}
+.plan-volume-add-btn-enable {
+}
+

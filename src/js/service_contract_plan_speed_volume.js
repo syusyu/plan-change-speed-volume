@@ -151,7 +151,6 @@ var plan_speed_volume = (function () {
 
         settle_selected_volume_pack = function (selected_id) {
             if (!_volume_status || spa_page_util.isEmpty(get_volume_pack_list())) {
-                console.log('settle_selected_volume_pack failed');
                 return;
             }
             if (!selected_id) {
@@ -161,7 +160,6 @@ var plan_speed_volume = (function () {
                         return el.id === selected_id
                     })[0] || null;
             }
-            console.log('settle_selected_volume_pack.selected_id' + (_selected_volume_pack ? _selected_volume_pack.id : 'none'));
         };
 
         return {
