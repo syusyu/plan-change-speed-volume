@@ -216,25 +216,44 @@ table.plan-speed-change td {
 }
 
 /*********** plan's speed change button area ***********/
-.plan-speed-change-btn-area {
-    width: 70%;
+.plan-speed-change-action-area {
+    width: 100%;
     margin: 20px 20px 0px 0px;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.plan-speed-change-agree {
-    /*margin: 5px 20px 0px 0px;*/
+.plan-speed-change-btn-wrapper {
+    display: flex;
+}
+
+#plan-speed-change-agree {
     font-size: 110%;
     cursor: pointer;
 }
-.plan-speed-change-btn-wrapper {
-    overflow: hidden;
+
+/*********** plan's volume add button area ***********/
+.plan-volume-add-action-area {
+    width: 90%;
+    margin: 20px 20px 10px 30px;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
 }
-.plan-speed-change-btn-wrapper:after {
-    clear: both;
+.plan-volume-add-agree-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.plan-volume-add-btn-wrapper {
+    display: flex;
 }
 
-.plan-speed-change-back-btn {
-    /*width: 180px;*/
+#plan-volume-add-agree {
+    font-size: 110%;
+    cursor: pointer;
+}
+#volume-pack-list {
+    width: 300px;
 }
 
 
@@ -246,7 +265,6 @@ table.plan-speed-change td {
     height: 40px;
     margin-left: 5px;
     display: block;
-    float: right;
 }
 .toggle-btn-enable {
     background: url(../img/btn_plan_change_cancel_off.gif);
@@ -254,7 +272,6 @@ table.plan-speed-change td {
     height: 40px;
     margin-left: 5px;
     display: block;
-    float: right;
 }
 .plan-speed-change-btn-disable {
 }
