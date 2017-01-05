@@ -59,7 +59,7 @@ var plan_speed_volume = (function () {
             },
 
             selectVolumePack = spa_page_transition.createFunc(function (observer, anchor_map) {
-                logger.debug('selectVolumePack is called. selected_id', anchor_map.val);
+                logger.debug('selectVolumePack is called. selected_val', anchor_map.val);
                 app_state.settle_selected_volume_pack(anchor_map.val);
                 observer.trigger('SELECTED_VOLUME_PACK', app_state.get_selected_volume_pack());
             }),
@@ -76,14 +76,20 @@ var plan_speed_volume = (function () {
             }),
 
             getParamsForUpdateVolume = function () {
-                return {'id': app_state.get_selected_volume_pack()};
+                var
+                    params = {'contractPlanId': contract_plan_id, 'volumePackSeq': $('#volume-pack-list').val()};
+
+                $('input[name^=CHECK_KEY_]').each(function (idx, el) {
+                    params[$(el).attr('name')] = $(el).val();
+                });
+                return params;
             },
 
             initializationFunc = spa_page_transition.createAjaxFunc(PATH_INIT, send_params, createInitCallBack().callbackFunc),
 
             updateSpeed = spa_page_transition.createAjaxFunc(PATH_UPDATE_SPEED, {'contractPlanId': contract_plan_id}, createUpdateSpeedCallBack().callbackFunc),
 
-            updateVolume = spa_page_transition.createAjaxFunc(PATH_UPDATE_VOLUME, {}, createUpdateVolumeCallBack().callbackFunc),
+            updateVolume = spa_page_transition.createAjaxFunc(PATH_UPDATE_VOLUME, {}, createUpdateVolumeCallBack().callbackFunc).get_params(getParamsForUpdateVolume),
 
             logger = spa_log.createLogger(is_debug_mode, '### SPEED_VOLUME.LOG ###');
 
@@ -149,15 +155,15 @@ var plan_speed_volume = (function () {
             return _selected_volume_pack;
         };
 
-        settle_selected_volume_pack = function (selected_id) {
+        settle_selected_volume_pack = function (selected_val) {
             if (!_volume_status || spa_page_util.isEmpty(get_volume_pack_list())) {
                 return;
             }
-            if (!selected_id) {
+            if (!selected_val) {
                 _selected_volume_pack = get_volume_pack_list()[0];
             } else {
                 _selected_volume_pack = get_volume_pack_list().filter(function (el) {
-                        return el.id === selected_id
+                        return el.volume_pack_seq === selected_val
                     })[0] || null;
             }
         };

@@ -163,6 +163,13 @@
 			</div>
 		</div>
 
+		<div data-bind-show-if="SPEED_UPDATE.status=99">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>契約一覧ページに戻ってから、再度実行してください。</p>
+			</div>
+		</div>
+
 		<div class="box-for-btn">
 			<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
 				<img src="img/btn_back_off.gif" alt=""/>
@@ -192,11 +199,11 @@
 			<div class="spa-select">
 				<select id ="volume-pack-list"
 						data-bind-loop="VOLUME.volume_pack_list" data-action-change-id="select-volume-pack" data-action-change-params="val">
-					<option data-bind-id="VOLUME.volume_pack_list.id"
-							data-bind-val="VOLUME.volume_pack_list.id"
+					<option
+							data-bind-val="VOLUME.volume_pack_list.volume_pack_seq"
 							data-bind-selected="VOLUME.volume_pack_list.selected"
-							data-bind-text="VOLUME.volume_pack_list.text"
-							data-bind-text1="VOLUME.volume_pack_list.volume" data-bind-text2="VOLUME.volume_pack_list.term" data-bind-text3="VOLUME.volume_pack_list.price" data-bind-text-separator=" / "></option>
+							data-bind-text="VOLUME.volume_pack_list.default_text"
+							data-bind-text1="VOLUME.volume_pack_list.volume_pack_name" data-bind-text2="VOLUME.volume_pack_list.price_with_tax" data-bind-text-separator=" / "></option>
 				</select>
 			</div>
 			<div>
@@ -224,9 +231,8 @@
 		<div data-bind-show-if="VOLUME_UPDATE.status=0">
 			<h3>容量を追加しました。</h3>
 			<div class="plan-change-explain">
-				<span data-bind-text="SELECTED_VOLUME_PACK.volume"></span> /
-				<span data-bind-text="SELECTED_VOLUME_PACK.term"></span> /
-				<span data-bind-text="SELECTED_VOLUME_PACK.price"></span>
+				<span data-bind-text="SELECTED_VOLUME_PACK.volume_pack_name"></span> /
+				<span data-bind-text="SELECTED_VOLUME_PACK.price_with_tax"></span>
 			</div>
 		</div>
 
@@ -241,6 +247,13 @@
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>ただいまメンテナンス中です。</p>
+			</div>
+		</div>
+
+		<div data-bind-show-if="VOLUME_UPDATE.status=99">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>契約一覧ページに戻ってから、再度実行してください。</p>
 			</div>
 		</div>
 
