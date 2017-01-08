@@ -260,6 +260,11 @@ spa_page_transition.func = (function () {
             this.stays = true;
         },
 
+        forward: function (next_action) {
+            this.stay();
+            $.uriAnchor.setAnchor({'action': next_action});
+        },
+
         error: function (err_mes) {
             throw new Error(err_mes);
         },
@@ -699,7 +704,7 @@ spa_page_transition.data_bind = (function () {
             if (!bind_format) {
                 return val;
             }
-            if (bind_format === 'number') {
+            if (spa_page_util.contains(bind_format, '[number]')) {
                 val = val.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
             } else if (bind_format === 'date') {
             } else {
@@ -711,7 +716,7 @@ spa_page_transition.data_bind = (function () {
         _settle_bind_val = function ($el, attr, data, prop_key) {
             var
                 prev_val,
-                format = $el.attr('data-bind-format'),
+                format = $el.attr('data-bind-format-' + attr) || $el.attr('data-bind-format'),
                 separator = $el.attr('data-bind-text-separator') || '',
                 val = _format_bind_val(data, prop_key, format);
 

@@ -232,6 +232,38 @@ table.plan-speed-change td {
     cursor: pointer;
 }
 
+/*********** plan's volume add error ***********/
+.volume-pack-error-hide {
+    opacity: 0;
+    margin: 25px 0px 0px 40px;
+    position: fixed;
+}
+
+.volume-pack-error-show {
+    opacity: 0.8;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10;
+    position: fixed;
+    width: 260px;
+    height: 40px;
+    margin: 25px 0px 0px 40px;
+
+    color: #ffffff;
+    background-color: #ff0000;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
 /*********** plan's volume add button area ***********/
 .plan-volume-add-action-area {
     width: 90%;

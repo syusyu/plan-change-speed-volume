@@ -61,6 +61,8 @@ var plan_speed_volume = (function () {
             selectVolumePack = spa_page_transition.createFunc(function (observer, anchor_map) {
                 logger.debug('selectVolumePack is called. selected_val', anchor_map.val);
                 app_state.settle_selected_volume_pack(anchor_map.val);
+                $('#volume-pack-error').removeClass('volume-pack-error-show')
+                $('#volume-pack-error').addClass('volume-pack-error-hide')
                 observer.trigger('SELECTED_VOLUME_PACK', app_state.get_selected_volume_pack());
             }),
 
@@ -70,8 +72,9 @@ var plan_speed_volume = (function () {
 
                 logger.debug('validateVolumePack is called. val=' + selected_volume_val);
                 if (!selected_volume_val || selected_volume_val < 0) {
-                    alert('volume pack should be selected');
-                    observer.stay();
+                    $('#volume-pack-error').removeClass('volume-pack-error-hide')
+                    $('#volume-pack-error').addClass('volume-pack-error-show')
+                    observer.forward('next-to-add-volume');
                 }
             }),
 

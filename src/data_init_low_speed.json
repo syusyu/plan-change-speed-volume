@@ -11,9 +11,9 @@
     "enable_add_volume": "1",
     "volume_pack_list": [
       {"volume_pack_seq":"-1", "default_text": "選択してください", "selected": "selected"},
-      {"volume_pack_seq":"100", "volume_pack_name": "500M", "price_with_tax": "500円"},
-      {"volume_pack_seq":"200", "volume_pack_name": "1G", "price_with_tax": "1000円"},
-      {"volume_pack_seq":"300", "volume_pack_name": "3G", "price_with_tax": "3000円"}
+      {"volume_pack_seq":"100", "volume_pack_name": "500M", "price_with_tax": "500"},
+      {"volume_pack_seq":"200", "volume_pack_name": "1G", "price_with_tax": "1000"},
+      {"volume_pack_seq":"300", "volume_pack_name": "3G", "price_with_tax": "3000"}
     ]
   }
 }
