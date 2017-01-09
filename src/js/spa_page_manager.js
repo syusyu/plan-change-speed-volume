@@ -617,7 +617,7 @@ spa_page_transition.data_bind = (function () {
         var
             _init_bind_prop_map, _create_bind_prop_map, _bind_prop_map,
             _get_all_prop_map,
-            _settle_bind_val, _extract_val, _get_bind_val, _format_bind_val,
+            _settle_bind_val, _extract_val, _get_bind_val, _format_bind_val, _affix_bind_val,
             _each_attr_type, _each_attr_type_selectors,
 
             _create_loop_element, _do_find_loop_element, _clone_loop_children, _replace_cloned_element_attr,
@@ -697,28 +697,40 @@ spa_page_transition.data_bind = (function () {
             return val;
         };
 
-        _format_bind_val = function (data, prop_key, bind_format) {
+        _format_bind_val = function (data, prop_key, bind_format, bind_affix) {
             var
                 val = _get_bind_val(data, prop_key);
 
             if (!bind_format) {
-                return val;
+                return _affix_bind_val(val, bind_affix);
             }
-            if (spa_page_util.contains(bind_format, '[number]')) {
+            if (bind_format ==='number') {
                 val = val.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
             } else if (bind_format === 'date') {
+                console.warn('Not implemented yet.')
             } else {
                 console.error('Invalid bind_format:' + bind_format)
             }
-            return val;
+            return _affix_bind_val(val, bind_affix);
+        };
+
+        _affix_bind_val = function(val, affix) {
+            if (!affix || !val) {
+                return val;
+            }
+            if (!spa_page_util.contains(affix, '#')) {
+                console.error('Put at least one # as a original value.');
+            }
+            return affix.replace(/#/g, val);
         };
 
         _settle_bind_val = function ($el, attr, data, prop_key) {
             var
                 prev_val,
                 format = $el.attr('data-bind-format-' + attr) || $el.attr('data-bind-format'),
+                affix = $el.attr('data-bind-affix-' + attr),
                 separator = $el.attr('data-bind-text-separator') || '',
-                val = _format_bind_val(data, prop_key, format);
+                val = _format_bind_val(data, prop_key, format, affix);
 
             if (attr === 'text') {
                 $el.text(val);

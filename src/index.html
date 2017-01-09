@@ -208,7 +208,7 @@
 							data-bind-selected="VOLUME.volume_pack_list.selected"
 							data-bind-text="VOLUME.volume_pack_list.default_text"
 							data-bind-text1="VOLUME.volume_pack_list.volume_pack_name" data-bind-text2="VOLUME.volume_pack_list.price_with_tax" data-bind-text-separator=" / "
-							data-bind-format-text2="[number]円"></option>
+							data-bind-format-text2="number" data-bind-affix-text2="#円"></option>
 				</select>
 			</div>
 			<div>
@@ -237,7 +237,7 @@
 			<h3>容量を追加しました。</h3>
 			<div class="plan-change-explain">
 				<span data-bind-text="SELECTED_VOLUME_PACK.volume_pack_name"></span> /
-				<span data-bind-text="SELECTED_VOLUME_PACK.price_with_tax"></span>
+				<span data-bind-text="SELECTED_VOLUME_PACK.price_with_tax" data-bind-format-text="number"></span>円
 			</div>
 		</div>
 
