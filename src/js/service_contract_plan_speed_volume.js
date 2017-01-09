@@ -5,54 +5,6 @@ var plan_speed_volume = (function () {
         contract_plan_id, model, shell,
         initModule;
 
-    shell = (function () {
-        var
-            hide_error_message = function () {
-                $('#volume-pack-error').removeClass('volume-pack-error-show');
-                $('#volume-pack-error').addClass('volume-pack-error-hide');
-            },
-            show_error_message = function () {
-                $('#volume-pack-error').removeClass('volume-pack-error-hide');
-                $('#volume-pack-error').addClass('volume-pack-error-show');
-            },
-            check_off_volume_agreement = function () {
-                $('#volume-add-agree').prop('checked', false);
-            },
-            init_volume_pack_selection = function () {
-                $('#volume-pack-list').val(-1);
-            },
-            tear_down = function () {
-                hide_error_message();
-                check_off_volume_agreement();
-                init_volume_pack_selection();
-            },
-            get_params_for_update = function () {
-                var
-                    params = {'contractPlanId': contract_plan_id};
-
-                $('input[name^=CHECK_KEY_]').each(function (idx, el) {
-                    params[$(el).attr('name')] = $(el).val();
-                });
-                return params;
-            },
-            get_params_for_update_volume = function () {
-                var
-                    params = get_params_for_update();
-
-                params.volumePackSeq = $('#volume-pack-list').val();
-                return params;
-            };
-        return {
-            show_error_message: show_error_message,
-            hide_error_message: hide_error_message,
-            check_off_volume_agreement: check_off_volume_agreement,
-            init_volume_pack_selection: init_volume_pack_selection,
-            tear_down: tear_down,
-            get_params_for_update: get_params_for_update,
-            get_params_for_update_volume: get_params_for_update_volume,
-        }
-    })();
-
     initModule = function ($server_host, send_params, is_debug_mode) {
         var
             server_host = spa_page_util.exists($server_host) ? $server_host.val() : null,
@@ -224,6 +176,54 @@ var plan_speed_volume = (function () {
             get_volume_pack_list: get_volume_pack_list,
             settle_selected_volume_pack: settle_selected_volume_pack,
             get_selected_volume_pack: get_selected_volume_pack,
+        }
+    })();
+
+    shell = (function () {
+        var
+            hide_error_message = function () {
+                $('#volume-pack-error').removeClass('volume-pack-error-show');
+                $('#volume-pack-error').addClass('volume-pack-error-hide');
+            },
+            show_error_message = function () {
+                $('#volume-pack-error').removeClass('volume-pack-error-hide');
+                $('#volume-pack-error').addClass('volume-pack-error-show');
+            },
+            check_off_volume_agreement = function () {
+                $('#volume-add-agree').prop('checked', false);
+            },
+            init_volume_pack_selection = function () {
+                $('#volume-pack-list').val(-1);
+            },
+            tear_down = function () {
+                hide_error_message();
+                check_off_volume_agreement();
+                init_volume_pack_selection();
+            },
+            get_params_for_update = function () {
+                var
+                    params = {'contractPlanId': contract_plan_id};
+
+                $('input[name^=CHECK_KEY_]').each(function (idx, el) {
+                    params[$(el).attr('name')] = $(el).val();
+                });
+                return params;
+            },
+            get_params_for_update_volume = function () {
+                var
+                    params = get_params_for_update();
+
+                params.volumePackSeq = $('#volume-pack-list').val();
+                return params;
+            };
+        return {
+            show_error_message: show_error_message,
+            hide_error_message: hide_error_message,
+            check_off_volume_agreement: check_off_volume_agreement,
+            init_volume_pack_selection: init_volume_pack_selection,
+            tear_down: tear_down,
+            get_params_for_update: get_params_for_update,
+            get_params_for_update_volume: get_params_for_update_volume,
         }
     })();
 
