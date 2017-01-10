@@ -8,7 +8,6 @@ var plan_speed_volume = (function () {
     initModule = function ($server_host, send_params, is_debug_mode) {
         var
             server_host = spa_page_util.exists($server_host) ? $server_host.val() : null,
-            contract_plan_id = send_params['contractPlanId'],
 
             PATH_INIT = server_host + '/data_init_low_speed.json',
             PATH_UPDATE_SPEED = server_host + '/data_update_succeeded_high.json',
@@ -87,9 +86,11 @@ var plan_speed_volume = (function () {
                 createUpdateSpeedCallBack().callbackFunc).get_params(shell.get_params_for_update),
 
             updateVolume = spa_page_transition.createAjaxFunc(PATH_UPDATE_VOLUME, {},
-                createUpdateVolumeCallBack().callbackFunc).get_params(shell.get_params_for_update_volume),
+                createUpdateVolumeCallBack().callbackFunc).get_params(shell.get_params_for_update_volume);
 
-            logger = spa_log.createLogger(is_debug_mode, '### SPEED_VOLUME.LOG ###');
+
+        logger = spa_log.createLogger(is_debug_mode, '### SPEED_VOLUME.LOG ###');
+        contract_plan_id = send_params['contractPlanId'];
 
         if (spa_page_util.isEmpty(server_host)) {
             spa_page_transition.renderPage('plan-detail-main');
