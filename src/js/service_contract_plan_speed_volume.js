@@ -119,11 +119,21 @@ var plan_speed_volume = (function () {
             prepare;
 
         prepare = function (data) {
-            _speed_status = data.speed_status;
-            _speed_update = data.speed_update;
-            _volume_status = data.volume_status;
-            _volume_update = data.volume_update;
-            _plan_data = data.plan_data;
+            if (data.speed_status) {
+                _speed_status = data.speed_status;
+            }
+            if (data.speed_update) {
+                _speed_update = data.speed_update;
+            }
+            if (data.volume_status) {
+                _volume_status = data.volume_status;
+            }
+            if (data.volume_update) {
+                _volume_update = data.volume_update;
+            }
+            if (data.plan_data) {
+                _plan_data = data.plan_data;
+            }
         };
 
         get_plan_data = function () {
