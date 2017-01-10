@@ -201,7 +201,10 @@ var plan_speed_volume = (function () {
                 $('#volume-pack-error').addClass('volume-pack-error-show');
             },
             check_off_volume_agreement = function () {
-                $('#volume-add-agree').prop('checked', false);
+                $('#volume-add-agree').prop('checked', true).trigger('click');
+            },
+            check_off_speed_agreement = function () {
+                $('#speed-change-agree').prop('checked', true).trigger('click');
             },
             init_volume_pack_selection = function () {
                 $('#volume-pack-list').val(-1);
@@ -209,6 +212,7 @@ var plan_speed_volume = (function () {
             tear_down = function () {
                 hide_error_message();
                 check_off_volume_agreement();
+                check_off_speed_agreement();
                 init_volume_pack_selection();
             },
             get_params_for_update = function () {
@@ -230,8 +234,6 @@ var plan_speed_volume = (function () {
         return {
             show_error_message: show_error_message,
             hide_error_message: hide_error_message,
-            check_off_volume_agreement: check_off_volume_agreement,
-            init_volume_pack_selection: init_volume_pack_selection,
             tear_down: tear_down,
             get_params_for_update: get_params_for_update,
             get_params_for_update_volume: get_params_for_update_volume,
