@@ -310,15 +310,11 @@ spa_page_transition.func = (function () {
                 this_obj = this;
 
             spa_page_data.serverAccessor(decide_path(this_obj), decide_params(this_obj)).then(function (data) {
-                    if (data.server_error_status) {
-                        d.reject({err_mes: 'serverAccessor error. status:' + data.server_error_status});
-                    } else {
-                        this_obj.exec_main_func(this_obj, anchor_map, data).then(function (data_main_func) {
-                            d.resolve(data_main_func);
-                        }, function (data_main_func) {
-                            d.reject(data_main_func);
-                        });
-                    }
+                    this_obj.exec_main_func(this_obj, anchor_map, data).then(function (data_main_func) {
+                        d.resolve(data_main_func);
+                    }, function (data_main_func) {
+                        d.reject(data_main_func);
+                    });
                 }, function (data) {
                     spa_page_transition.getLogger().error('ajaxFunc.serverAccess failed. data', data);
                     d.reject(data);
@@ -594,8 +590,8 @@ spa_page_transition.shell = (function () {
         } else {
             $.when(spa_page_transition.model.getInitializationFunc().execute(params)).then(function () {
                 startAction();
-            }, function (data) {
-                renderErrorPage(data);
+            }, function () {
+                renderErrorPage();
             });
         }
     };
@@ -916,7 +912,7 @@ spa_page_transition.data_bind = (function () {
                 });
             });
 
-            $('[data-bind-show-if],[data-bind-show-id]').each(function (idx, el) {
+            $('[data-bind-show-if],[data-bind-show-if-not],[data-bind-show-id]').each(function (idx, el) {
                 var
                     pure_attr, obj_key_cond_list, obj_key_list, cond, val;
 
