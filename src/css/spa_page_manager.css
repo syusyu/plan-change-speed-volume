@@ -100,7 +100,7 @@
     pointer-events: none;
 }
 
-div[data-bind-show-if] {
+div[data-bind-show-if-eq], div[data-bind-show-if-not-eq], div[data-bind-show-if-empty], div[data-bind-show-if-not-empty] {
     display: none;
 }
 

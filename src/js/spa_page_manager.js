@@ -310,11 +310,15 @@ spa_page_transition.func = (function () {
                 this_obj = this;
 
             spa_page_data.serverAccessor(decide_path(this_obj), decide_params(this_obj)).then(function (data) {
-                    this_obj.exec_main_func(this_obj, anchor_map, data).then(function (data_main_func) {
-                        d.resolve(data_main_func);
-                    }, function (data_main_func) {
-                        d.reject(data_main_func);
-                    });
+                    if (data.server_error_status) {
+                        d.reject({err_mes: 'serverAccessor error. status:' + data.server_error_status});
+                    } else {
+                        this_obj.exec_main_func(this_obj, anchor_map, data).then(function (data_main_func) {
+                            d.resolve(data_main_func);
+                        }, function (data_main_func) {
+                            d.reject(data_main_func);
+                        });
+                    }
                 }, function (data) {
                     spa_page_transition.getLogger().error('ajaxFunc.serverAccess failed. data', data);
                     d.reject(data);
@@ -756,7 +760,8 @@ spa_page_transition.data_bind = (function () {
             } else if (attr === 'val') {
                 $el.val(val);
             } else if (attr === 'val1' || attr === 'val2' || attr === 'val3') {
-                prev_val = $el.attr('value');
+                prev_val = $el.val();
+                prev_val = prev_val && prev_val === $el.text() ? '' : prev_val;
                 if (prev_val) {
                     $el.val(prev_val + val_separator + val);
                 } else {

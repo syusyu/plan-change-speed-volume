@@ -182,20 +182,28 @@ var plan_speed_volume = (function () {
             }
         };
         filter_volume_add_history = function (selected_filter) {
-            var
-                y_m = selected_filter.split('-'),
-                y = y_m[0],
-                m = y_m[1],
-                result = _volume_add_history.filter(function (el) {
-                    return (y === 'all' || m === 'all') ? true : (el.year === y && el.month === m);
-                });
+            var y_m, y, m, result;
+            if (!selected_filter) {
+                return null;
+            }
+            y_m = selected_filter.split('-');
+            y = y_m[0];
+            m = y_m[1];
+            result = _volume_add_history.filter(function (el) {
+                return (y === 'all' || m === 'all') ? true : (el.year === y && el.month === m);
+            });
             return {'volume_add_history': result};
         };
         get_volume_add_history_filter = function () {
             return {'volume_add_history_filter': _volume_add_history_filter};
         };
         get_first_element_of_history_filter = function () {
-            return spa_page_util.isEmpty(_volume_add_history_filter) ? null : _volume_add_history_filter[0].year + '-' + _volume_add_history_filter[0].month;
+            var first_el;
+            if (spa_page_util.isEmpty(_volume_add_history_filter)) {
+                return null;
+            }
+            first_el = _volume_add_history_filter[0];
+            return first_el.year ? first_el.year + '-' + first_el.month : first_el.val_for_all;
         };
         return {
             prepare: prepare,
