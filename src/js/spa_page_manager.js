@@ -623,14 +623,23 @@ spa_page_transition.data_bind = (function () {
             _create_loop_element, _do_find_loop_element, _clone_loop_children, _replace_cloned_element_attr,
 
             get_toggle_class_list,
-            trigger,
+            trigger, show_condition,
 
-            BIND_ATTR_TYPES = ['id', 'text', 'text1', 'text2', 'text3', 'html', 'val', 'loop', 'selected'];
+            BIND_ATTR_TYPES = ['id', 'text', 'text1', 'text2', 'text3', 'html', 'val', 'val1', 'val2', 'val3', 'loop', 'selected'],
+            SHOW_COND_SELECTORS = [
+                'data-bind-show-if-eq', 'data-bind-show-if-not-eq', 'data-bind-show-if-empty', 'data-bind-show-if-not-empty',
+                'data-bind-show-if', 'data-bind-show-id'],
+            all_show_cond_selectors = '';
+
+        $.each(SHOW_COND_SELECTORS, function (idx, selector) {
+            all_show_cond_selectors += idx > 0 ? ',' : '';
+            all_show_cond_selectors += '[' + selector + ']';
+        });
 
         _init_bind_prop_map = function (key, data) {
             $('[' + BIND_ATTR_REPLACED_KEY + ']').each(function (idx, el) {
                 var replaced_key = $(el).attr(BIND_ATTR_REPLACED_KEY);
-                if (spa_page_util.startsWith(replaced_key, key)) {
+                if (spa_page_util.startsWith(replaced_key, key + '.')) {
                     $(el).remove();
                 }
             });
@@ -704,7 +713,7 @@ spa_page_transition.data_bind = (function () {
             if (!bind_format) {
                 return _affix_bind_val(val, bind_affix);
             }
-            if (bind_format ==='number') {
+            if (bind_format === 'number') {
                 val = val.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
             } else if (bind_format === 'date') {
                 console.warn('Not implemented yet.')
@@ -714,7 +723,7 @@ spa_page_transition.data_bind = (function () {
             return _affix_bind_val(val, bind_affix);
         };
 
-        _affix_bind_val = function(val, affix) {
+        _affix_bind_val = function (val, affix) {
             if (!affix || !val) {
                 return val;
             }
@@ -730,6 +739,7 @@ spa_page_transition.data_bind = (function () {
                 format = $el.attr('data-bind-format-' + attr) || $el.attr('data-bind-format'),
                 affix = $el.attr('data-bind-affix-' + attr),
                 separator = $el.attr('data-bind-text-separator') || '',
+                val_separator = $el.attr('data-bind-val-separator') || '',
                 val = _format_bind_val(data, prop_key, format, affix);
 
             if (attr === 'text') {
@@ -745,6 +755,13 @@ spa_page_transition.data_bind = (function () {
                 $el.html(val);
             } else if (attr === 'val') {
                 $el.val(val);
+            } else if (attr === 'val1' || attr === 'val2' || attr === 'val3') {
+                prev_val = $el.attr('value');
+                if (prev_val) {
+                    $el.val(prev_val + val_separator + val);
+                } else {
+                    $el.val(val);
+                }
             } else if (attr === 'selected') {
                 $el.attr(attr, 'selected');
             } else {
@@ -814,6 +831,7 @@ spa_page_transition.data_bind = (function () {
             }
 
             $.each(cloned_elements, function (idx, $el_child) {
+                $($el_child).show();
                 $(el).append($el_child);
             });
             $.each(clone_target_elements, function (idx, $el_child) {
@@ -824,13 +842,13 @@ spa_page_transition.data_bind = (function () {
         };
 
         _replace_cloned_element_attr = function ($el, loop_prop_key, i) {
+            $el.attr(BIND_ATTR_REPLACED_KEY, loop_prop_key);
             _each_attr_type(function (bind_attr_type, attr_type) {
                 var
                     bind_attr = $el.attr(bind_attr_type);
 
                 if (bind_attr) {
                     $el.attr(bind_attr_type, bind_attr.replace(loop_prop_key, loop_prop_key + '$' + i));
-                    $el.attr(BIND_ATTR_REPLACED_KEY, loop_prop_key);
                 }
             });
         };
@@ -912,43 +930,157 @@ spa_page_transition.data_bind = (function () {
                 });
             });
 
-            $('[data-bind-show-if],[data-bind-show-if-not],[data-bind-show-id]').each(function (idx, el) {
-                var
-                    pure_attr, obj_key_cond_list, obj_key_list, cond, val;
+            $(all_show_cond_selectors).each(function (idx, el) {
+                $.each(SHOW_COND_SELECTORS, function (attr_idx, selector) {
+                    var
+                        attr_val = $(el).attr(selector),
+                        matched_show_cond;
 
-                if (!data) {
-                    $(el).hide();
-                    console.warn('data-bind-show-if.data is null');
-                    return true;
-                }
-
-                pure_attr = $(el).attr('data-bind-show-if') ? $(el).attr('data-bind-show-if') : $(el).attr('data-bind-show-id');
-                if (!pure_attr) {
-                    return true;
-                }
-
-                obj_key_cond_list = pure_attr.split('=');
-                obj_key_list = obj_key_cond_list[0].split('\.');
-                if (obj_key_cond_list.length > 1) {
-                    cond = obj_key_cond_list[1];
-                }
-
-                if (obj_key_list && obj_key_list[0] === key) {
-                    val = data[obj_key_list[1]];
-                    if (!val) {
-                        $(el).hide();
-                    } else if (cond && cond !== val) {
-                        $(el).hide();
-                    } else {
-                        $(el).show();
+                    if (attr_val) {
+                        matched_show_cond = show_condition.findShowCond(selector).prepare(data, attr_val);
+                        if (matched_show_cond.is_target(key)) {
+                            if (matched_show_cond.visible()) {
+                                $(el).show();
+                            } else {
+                                $(el).hide();
+                            }
+                        }
                     }
-                }
+                });
             });
         };
+
+        show_condition = (function () {
+            var
+                COND_TYPES = ['eq', 'empty'],
+                showCondMap,
+                createShowCondMap,
+                createShowCond, createShowCondEq, createShowCondEmpty,
+                showCondProto, showCondEq, showCondEmpty,
+                findShowCond;
+
+            showCondProto = {
+                set_not: function (_is_not) {
+                    this.is_not = _is_not;
+                },
+                prepare: function (data, attr) {
+                    var
+                        entity_prop, entity_prop_cond;
+                    this.prepared = true;
+                    if (!data) {
+                        console.warn('###invisible');
+                        return;
+                    }
+
+                    entity_prop_cond = attr.split('=');
+                    entity_prop = entity_prop_cond[0].split('\.');
+                    if (!entity_prop) {
+                        console.warn('###invisible entity_prop');
+                        return;
+                    }
+                    this.entity = entity_prop[0];
+                    this.prop_tree = entity_prop[1];
+                    if (entity_prop_cond.length > 1) {
+                        this.cond = entity_prop_cond[1];
+                    }
+                    this.data = data;
+                    return this;
+                },
+                is_target: function (key) {
+                    return this.entity && key === this.entity;
+                },
+                visible: function () {
+                    if (!this.prepared) {
+                        throw new Error('Call prepare method before calling visible method!');
+                    }
+                    return this.is_not ? !this.matches(this.data) : this.matches(this.data);
+                }
+            };
+
+            createShowCondMap = function () {
+                spa_page_transition.getLogger().debug('### initialization of show_condition ###')
+                showCondMap = {};
+                $.each(COND_TYPES, function (idx, cond_type) {
+                    var
+                        key = cond_type;
+                    showCondMap[key] = createShowCond(cond_type);
+                    key = cond_type + '-not';
+                    showCondMap[key] = createShowCond(key);
+                });
+            };
+
+            createShowCond = function (cond_type) {
+                var
+                    res;
+                if (spa_page_util.startsWith(cond_type, 'eq')) {
+                    res = createShowCondEq();
+                } else if (spa_page_util.startsWith(cond_type, 'empty')) {
+                    res = createShowCondEmpty();
+                } else {
+                    throw new Error('cond type NOT exists:' + cond_type);
+                }
+                res.set_not(spa_page_util.contains(cond_type, '-not'));
+                return res;
+            };
+
+            createShowCondEq = function () {
+                var res = Object.create(showCondProto);
+                res.matches = function (data) {
+                    var val = data[this.prop_tree];
+                    if (!val) {
+                        return false;
+                    } else if (this.cond && this.cond !== val) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
+                return res;
+            };
+
+            createShowCondEmpty = function () {
+                var res = Object.create(showCondProto);
+                res.matches = function (data) {
+                    var val = data[this.prop_tree];
+                    if (!val) {
+                        return true;
+                    } else if (typeof val === 'object') {
+                        return spa_page_util.isEmpty(Object.keys(val));
+                    } else {
+                        return spa_page_util.isEmpty(val);
+                    }
+                };
+                return res;
+            };
+
+            findShowCond = function (selector) {
+                var key;
+                if (spa_page_util.isEmpty(showCondMap)) {
+                    createShowCondMap();
+                }
+
+                if (spa_page_util.contains(selector, 'empty')) {
+                    key = 'empty';
+                } else if (spa_page_util.contains(selector, 'show-if-eq') || spa_page_util.contains(selector, 'show-if') || spa_page_util.contains(selector, 'show-id')) {
+                    key = 'eq';
+                } else {
+                    throw new Error('Not empty selector' + selector);
+                }
+
+                key += spa_page_util.contains(selector, '-not') ? '-not' : '';
+                var res = showCondMap[key];
+                return res;
+            };
+
+            return {
+                findShowCond: findShowCond
+            }
+        })();
 
         return {
             get_toggle_class_list: get_toggle_class_list,
             trigger: trigger,
+            show_condition: show_condition,
 
             //VisibleForTesting
             _get_bind_val: _get_bind_val,

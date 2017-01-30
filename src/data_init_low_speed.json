@@ -16,7 +16,7 @@
       {"volume_pack_seq":"300", "volume_pack_name": "3G", "price_with_tax": "3000"}
     ],
     "volume_add_history": [
-      {"volume_add_year":"2015", "volume_add_month":"12", "volume_add_day":"10", "volume_pack_name": "500M", "price_with_tax": "500"},
+      {"volume_add_year":"2015", "volume_add_month":"12", "volume_add_day":"10", "volume_pack_name": "1G", "price_with_tax": "1000"},
       {"volume_add_year":"2015", "volume_add_month":"12", "volume_add_day":"1", "volume_pack_name": "500M", "price_with_tax": "500"}
     ]
   }
