@@ -288,6 +288,42 @@ table.plan-speed-change td {
     width: 300px;
 }
 
+/* volume add history */
+.plan-volume-add-history-area {
+    width: 90%;
+    margin: 0px 20px 10px 30px;
+}
+#toggle-volume-add-history-area {
+    text-decoration: underline;
+    color: dimgrey;
+}
+.tbl_volume_add_history {
+    width: 80%;
+    margin: 5px 0px 10px;
+    border: 1px solid #e3e3e3;
+}
+.tbl_volume_add_history th {
+    width: 25%;
+    text-align: left;
+    padding: 10px 5px 5px 25px;
+    border: 1px solid #e3e3e3;
+    border-style: solid none;
+    font-weight: normal;
+    vertical-align: middle;
+    background-color: #f6f6f6;
+}
+.tbl_volume_add_history td {
+    vertical-align: middle;
+    background: #FFF;
+    padding: 10px 5px 5px 25px;
+    border: 1px solid #e3e3e3;
+    border-style: solid none;
+}
+#volume-add-history-filter-area {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+}
 
 /*********** toggle button ***********/
 .toggle-btn-disable {
@@ -313,4 +349,3 @@ table.plan-speed-change td {
 }
 .plan-volume-add-btn-enable {
 }
-

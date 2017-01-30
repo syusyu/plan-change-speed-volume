@@ -47,33 +47,33 @@
 			</tr>
 			<tr>
 				<td>
-					<div data-bind-show-if="SPEED.mode_high_speed=1">
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=1">
 						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
 					</div>
-					<div data-bind-show-if="SPEED.mode_high_speed=0">
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=0">
 						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
 					</div>
-					<div data-bind-show-if="SPEED.mode_high_speed=-1">
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=-1">
 						不明
 					</div>
 				</td>
 				<td>
-					<div data-bind-show-if="SPEED.enable_change_speed=1">
+					<div data-bind-show-if-eq="SPEED.enable_change_speed=1">
 						<a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
 							通信モード切替
 						</a>
 					</div>
-					<div data-bind-show-if="SPEED.enable_change_speed=0">
+					<div data-bind-show-if-eq="SPEED.enable_change_speed=0">
 						通信モード切替はできません。
 					</div>
 				</td>
 				<td>
-					<div data-bind-show-if="VOLUME.enable_add_volume=1">
+					<div data-bind-show-if-eq="VOLUME.enable_add_volume=1">
 						<a href="javascript:void(0);" data-action-click-id="next-to-add-volume">
 							容量追加
 						</a>
 					</div>
-					<div data-bind-show-if="VOLUME.enable_add_volume=0">
+					<div data-bind-show-if-eq="VOLUME.enable_add_volume=0">
 						容量追加はできません。
 					</div>
 				</td>
@@ -105,10 +105,10 @@
 				<td data-bind-text="PLAN.sim_no"></td>
 				<td data-bind-text="PLAN.plan_nm"></td>
 				<td>
-					<div data-bind-show-if="SPEED.mode_high_speed=1">
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=1">
 						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
 					</div>
-					<div data-bind-show-if="SPEED.mode_high_speed=0">
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=0">
 						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
 					</div>
 				</td>
@@ -133,7 +133,7 @@
 
 				<a href="javascript:void(0);"
 				   data-action-click-id="update-speed"
-				   class="toggle-btn-disable" data-bind-show-if="SPEED.enable_change_speed=1"
+				   class="toggle-btn-disable" data-bind-show-if-eq="SPEED.enable_change_speed=1"
 				   data-view-toggle-class="speed-change-confirm, toggle-btn-disable:inverse, toggle-btn-enable">
 				</a>
 			</div>
@@ -141,7 +141,7 @@
 	</div>
 
 	<div class="spa-page plan-speed-complete">
-		<div data-bind-show-if="SPEED_UPDATE.status=0">
+		<div data-bind-show-if-eq="SPEED_UPDATE.status=0">
 			<h3>通信速度を切り替えました。</h3>
 			<div class="plan-change-explain">
 				<p>プラン名称：<span data-bind-text="PLAN.plan_nm"></span></p>
@@ -149,14 +149,14 @@
 			</div>
 		</div>
 
-		<div data-bind-show-if="SPEED_UPDATE.status=1">
+		<div data-bind-show-if-eq="SPEED_UPDATE.status=1">
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>エラーが発生しました。</p>
 			</div>
 		</div>
 
-		<div data-bind-show-if="SPEED_UPDATE.status=2">
+		<div data-bind-show-if-eq="SPEED_UPDATE.status=2">
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>ただいまメンテナンス中です。</p>
@@ -172,31 +172,6 @@
 
 	<div class="spa-page plan-volume-add">
 		<h3>容量追加</h3>
-
-		<p>容量追加履歴</p>
-		<div data-bind-show-if="VOLUME.volume_add_history">
-			<table class="plan-speed-change">
-				<thead>
-				<tr>
-					<th>日時</th>
-					<th>容量</th>
-					<th>金額</th>
-				</tr>
-				</thead>
-				<tbody data-bind-loop="VOLUME.volume_add_history">
-				<tr>
-					<td data-bind-text1="VOLUME.volume_add_history.volume_add_year" data-bind-text2="VOLUME.volume_add_history.volume_add_month"
-						data-bind-text3="VOLUME.volume_add_history.volume_add_day" data-bind-text-separator="/"></td>
-					<td data-bind-text="VOLUME.volume_add_history.volume_pack_name"></td>
-					<td data-bind-text="VOLUME.volume_add_history.price_with_tax" data-bind-format-text="number" data-bind-affix-text="#円"></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-		<div data-bind-show-if-not="VOLUME.volume_add_history">
-			<p>特にありません。</p>
-		</div>
-
 
 		<div id="volume-pack-error" class="volume-pack-error-hide">
 			容量を選択してください
@@ -233,10 +208,45 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="plan-volume-add-history-area" data-bind-show-if-not-empty="VOLUME_ADD_HISTORY.volume_add_history">
+			<span id="toggle-volume-add-history-area" data-view-toggle-trigger="toggle-slide-next:on">履歴を確認する</span>
+			<div class="toggle-slide-next-target">
+				<table class="tbl_volume_add_history">
+					<thead>
+					<tr>
+						<th>日時</th>
+						<th>容量</th>
+						<th>金額</th>
+					</tr>
+					</thead>
+					<tbody data-bind-loop="VOLUME_ADD_HISTORY.volume_add_history">
+					<tr>
+						<td data-bind-text1="VOLUME_ADD_HISTORY.volume_add_history.year" data-bind-text2="VOLUME_ADD_HISTORY.volume_add_history.month"
+							data-bind-text3="VOLUME_ADD_HISTORY.volume_add_history.day" data-bind-affix-text1="#年" data-bind-affix-text2="#月" data-bind-affix-text3="#日"></td>
+						<td data-bind-text="VOLUME_ADD_HISTORY.volume_add_history.volume_pack_name"></td>
+						<td data-bind-text="VOLUME_ADD_HISTORY.volume_add_history.price_with_tax" data-bind-format-text="number" data-bind-affix-text="#円"></td>
+					</tr>
+					</tbody>
+				</table>
+
+				<div id="volume-add-history-filter-area">
+					<select id="volume-add-history-filter" data-bind-loop="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter" data-action-change-id="filter-volume-add-history" data-action-change-params="val">
+						<option data-bind-text1="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.year" data-bind-text2="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.month"
+								data-bind-affix-text1="#年" data-bind-affix-text2="#月"
+								data-bind-text="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.text_for_all"
+								data-bind-val1="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.year" data-bind-val2="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.month"
+								data-bind-val-separator="-" data-bind-val="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.val_for_all"
+								data-bind-selected="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.selected"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	<div class="spa-page plan-volume-complete">
-		<div data-bind-show-if="VOLUME_UPDATE.status=0">
+		<div data-bind-show-if-eq="VOLUME_UPDATE.status=0">
 			<h3>容量を追加しました。</h3>
 			<div class="plan-change-explain">
 				<span data-bind-text="SELECTED_VOLUME_PACK.volume_pack_name"></span> /
@@ -244,14 +254,14 @@
 			</div>
 		</div>
 
-		<div data-bind-show-if="VOLUME_UPDATE.status=1">
+		<div data-bind-show-if-eq="VOLUME_UPDATE.status=1">
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>エラーが発生しました。</p>
 			</div>
 		</div>
 
-		<div data-bind-show-if="VOLUME_UPDATE.status=2">
+		<div data-bind-show-if-eq="VOLUME_UPDATE.status=2">
 			<h3>容量追加に失敗しました。</h3>
 			<div class="plan-change-explain">
 				<p>ただいまメンテナンス中です。</p>

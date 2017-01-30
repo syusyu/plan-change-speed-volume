@@ -33,6 +33,8 @@ var plan_speed_volume = (function () {
                     logger.debug('createInitCallBack is called. data', data);
                     callbackFuncProto.callbackFunc.apply(this, arguments);
                     observer.trigger('PLAN', model.get_plan_data());
+                    observer.trigger('VOLUME_ADD_HISTORY', model.filter_volume_add_history(model.get_first_element_of_history_filter()));
+                    observer.trigger('VOLUME_ADD_HISTORY_FILTER', model.get_volume_add_history_filter());
                 };
                 return result;
             },
@@ -62,6 +64,12 @@ var plan_speed_volume = (function () {
                 model.settle_selected_volume_pack(anchor_map.val);
                 shell.hide_error_message();
                 observer.trigger('SELECTED_VOLUME_PACK', model.get_selected_volume_pack());
+            }),
+
+            filterVolumeAddHistory = spa_page_transition.createFunc(function (observer, anchor_map) {
+                logger.debug('filterVolumeAddHistory is called. selected_val', anchor_map.val);
+                shell.update_volume_add_history_filter(anchor_map.val);
+                observer.trigger('VOLUME_ADD_HISTORY', model.filter_volume_add_history(anchor_map.val));
             }),
 
             validateVolumePack = spa_page_transition.createFunc(function (observer, anchor_map) {
@@ -101,6 +109,7 @@ var plan_speed_volume = (function () {
                 .addAction('next-to-add-volume', 'plan-volume-add')
                 .addAction('back-to-plan-detail-main', 'plan-detail-main', [tearDown])
                 .addAction('select-volume-pack', 'plan-volume-add', [selectVolumePack])
+                .addAction('filter-volume-add-history', 'plan-volume-add', [filterVolumeAddHistory])
                 .addAction('update-speed', 'plan-speed-complete', [updateSpeed])
                 .addAction('update-volume', 'plan-volume-complete', [validateVolumePack, updateVolume, tearDown])
                 .run();
@@ -116,6 +125,8 @@ var plan_speed_volume = (function () {
             get_volume_pack_list,
             _selected_volume_pack, get_selected_volume_pack, settle_selected_volume_pack,
             _volume_update, get_volume_update,
+            _volume_add_history, _volume_add_history_filter,
+            filter_volume_add_history, get_volume_add_history_filter, get_first_element_of_history_filter,
             prepare;
 
         prepare = function (data) {
@@ -127,6 +138,8 @@ var plan_speed_volume = (function () {
             }
             if (data.volume_status) {
                 _volume_status = data.volume_status;
+                _volume_add_history = _volume_status.volume_add_history;
+                _volume_add_history_filter = _volume_status.volume_add_history_filter;
             }
             if (data.volume_update) {
                 _volume_update = data.volume_update;
@@ -135,35 +148,27 @@ var plan_speed_volume = (function () {
                 _plan_data = data.plan_data;
             }
         };
-
         get_plan_data = function () {
             return _plan_data;
         };
-
         get_speed_status = function () {
             return _speed_status;
         };
-
         get_speed_update = function () {
             return _speed_update;
         };
-
         get_volume_status = function () {
             return _volume_status;
         };
-
         get_volume_update = function () {
             return _volume_update;
         };
-
         get_volume_pack_list = function () {
             return _volume_status.volume_pack_list;
         };
-
         get_selected_volume_pack = function () {
             return _selected_volume_pack;
         };
-
         settle_selected_volume_pack = function (selected_val) {
             if (!_volume_status || spa_page_util.isEmpty(get_volume_pack_list())) {
                 return;
@@ -176,7 +181,22 @@ var plan_speed_volume = (function () {
                     })[0] || null;
             }
         };
-
+        filter_volume_add_history = function (selected_filter) {
+            var
+                y_m = selected_filter.split('-'),
+                y = y_m[0],
+                m = y_m[1],
+                result = _volume_add_history.filter(function (el) {
+                    return (y === 'all' || m === 'all') ? true : (el.year === y && el.month === m);
+                });
+            return {'volume_add_history': result};
+        };
+        get_volume_add_history_filter = function () {
+            return {'volume_add_history_filter': _volume_add_history_filter};
+        };
+        get_first_element_of_history_filter = function () {
+            return spa_page_util.isEmpty(_volume_add_history_filter) ? null : _volume_add_history_filter[0].year + '-' + _volume_add_history_filter[0].month;
+        };
         return {
             prepare: prepare,
             get_plan_data: get_plan_data,
@@ -187,6 +207,9 @@ var plan_speed_volume = (function () {
             get_volume_pack_list: get_volume_pack_list,
             settle_selected_volume_pack: settle_selected_volume_pack,
             get_selected_volume_pack: get_selected_volume_pack,
+            filter_volume_add_history: filter_volume_add_history,
+            get_volume_add_history_filter: get_volume_add_history_filter,
+            get_first_element_of_history_filter: get_first_element_of_history_filter,
         }
     })();
 
@@ -230,6 +253,9 @@ var plan_speed_volume = (function () {
 
                 params.volumePackSeq = $('#volume-pack-list').val();
                 return params;
+            },
+            update_volume_add_history_filter = function (selected_filter) {
+                $('#volume-add-history-filter').val(selected_filter);
             };
         return {
             show_error_message: show_error_message,
@@ -237,6 +263,7 @@ var plan_speed_volume = (function () {
             tear_down: tear_down,
             get_params_for_update: get_params_for_update,
             get_params_for_update_volume: get_params_for_update_volume,
+            update_volume_add_history_filter: update_volume_add_history_filter,
         }
     })();
 
