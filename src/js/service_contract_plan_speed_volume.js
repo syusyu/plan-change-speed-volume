@@ -11,7 +11,7 @@ var plan_speed_volume = (function () {
 
             PATH_INIT = server_host + '/data_init_low_speed.json',
             PATH_UPDATE_SPEED = server_host + '/data_update_succeeded_high.json',
-            PATH_UPDATE_VOLUME = server_host + '/data_update_succeeded_high.json',
+            PATH_UPDATE_VOLUME = server_host + '/data_update_succeeded_volume.json',
             // PATH_INIT = server_host + '/data_init_high_speed.json',
             // PATH_INIT = server_host + '/data_init_disable3.json',
             // PATH_UPDATE_SPEED = server_host + '/data_update_succeeded_low.json',
@@ -138,8 +138,12 @@ var plan_speed_volume = (function () {
             }
             if (data.volume_status) {
                 _volume_status = data.volume_status;
-                _volume_add_history = _volume_status.volume_add_history;
-                _volume_add_history_filter = _volume_status.volume_add_history_filter;
+                if (_volume_status.volume_add_history) {
+                    _volume_add_history = _volume_status.volume_add_history;
+                }
+                if (_volume_status.volume_add_history_filter) {
+                    _volume_add_history_filter = _volume_status.volume_add_history_filter;
+                }
             }
             if (data.volume_update) {
                 _volume_update = data.volume_update;

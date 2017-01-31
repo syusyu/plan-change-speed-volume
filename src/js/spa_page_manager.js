@@ -803,7 +803,7 @@ spa_page_transition.data_bind = (function () {
                 cloned_children,
                 loop_prop_key = $(el).attr('data-bind-loop');
 
-            if (loop_prop_key && loop_prop_key.indexOf(key) === 0) {
+            if (loop_prop_key && loop_prop_key.indexOf(key + '.') === 0) {
                 cloned_children = _clone_loop_children(el, loop_prop_key, data);
                 $.each(cloned_children, function (idx, el_cloned_child) {
                     _do_find_loop_element(el_cloned_child, data, key);

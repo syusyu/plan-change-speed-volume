@@ -296,6 +296,7 @@ table.plan-speed-change td {
 #toggle-volume-add-history-area {
     text-decoration: underline;
     color: dimgrey;
+    cursor: pointer;
 }
 .tbl_volume_add_history {
     width: 80%;
