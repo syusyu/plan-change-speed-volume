@@ -275,6 +275,7 @@ table.plan-speed-change td {
 .plan-volume-add-agree-btn-wrapper {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 .plan-volume-add-btn-wrapper {
     display: flex;
@@ -342,11 +343,19 @@ table.plan-speed-change td {
     margin-left: 5px;
     display: block;
 }
-.plan-speed-change-btn-disable {
-}
-.plan-speed-change-btn-enable {
-}
-.plan-volume-add-btn-disable {
-}
-.plan-volume-add-btn-enable {
+.toggle-btn-back {
+    width: 100px;
+    height: 40px;
+    background-color: #01398E;
+
+    color: #FFFFFF;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
 }

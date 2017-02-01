@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Speed & Volume</title>
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/spa_page_manager.css"/>
+	<link rel="stylesheet" href="css/service-contract.css"/>
+</head>
+<body>
+<div class="header">
+	<div class="container">
+		<h1><a href=""><img src="img/icon.png" class="logo">Change speed</a></h1>
+	</div><!-- container -->
+</div>
+
+<div id="plan-speed-volume-container" class="container">
+
+	<div class="spa-page plan-change-nowloading visible">
+		<img src="img/now_loading_plan_change.gif" alt="Now loading"/>
+		<p id="plan-change-nowloading-text">Now loading</p>
+	</div>
+
+	<div class="spa-page plan-detail-main">
+		<table class="plan-speed-change">
+			<tbody>
+			<tr>
+				<th>今月の通信量</th>
+				<th>今月の高速通信可能残量</th>
+				<th>前月の通信量</th>
+			</tr>
+			<tr>
+				<td>1.95GB</td>
+				<td>0GB</td>
+				<td>4GB</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<table class="plan-speed-change">
+			<tr>
+				<th>高速通信モード</th>
+				<th>切り替え</th>
+				<th>容量追加</th>
+			</tr>
+			<tr>
+				<td>
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=1">
+						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
+					</div>
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=0">
+						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
+					</div>
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=-1">
+						不明
+					</div>
+				</td>
+				<td>
+					<div data-bind-show-if-eq="SPEED.enable_change_speed=1">
+						<a href="javascript:void(0);" data-action-click-id="next-to-change-speed">
+							通信モード切替
+						</a>
+					</div>
+					<div data-bind-show-if-eq="SPEED.enable_change_speed=0">
+						通信モード切替はできません。
+					</div>
+				</td>
+				<td>
+					<div data-bind-show-if-eq="VOLUME.enable_add_volume=1">
+						<a href="javascript:void(0);" data-action-click-id="next-to-add-volume">
+							容量追加
+						</a>
+					</div>
+					<div data-bind-show-if-eq="VOLUME.enable_add_volume=0">
+						容量追加はできません。
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="spa-page plan-speed-change">
+		<h3>通信モード切り替え</h3>
+
+		<p class="plan-speed-change-title">高速/低速の通信速度切替ができます。</p>
+
+		<div class="plan-speed-change-notice">
+			<ul>
+				<li>高速通信可能残量が残っている場合に、高速/英速を切り替えることができます。</li>
+				<li>低速状態では、高速通信可能残量にかかわらず、最大200kbpsの通信速度になります。</li>
+				<li>3日あたりの通信量が一定の既定値を越えた場合、設定に関わらず速度制限される場合があります。</li>
+			</ul>
+		</div>
+
+		<table class="plan-speed-change">
+			<tbody>
+			<tr>
+				<th>プラン名称</th>
+				<th>SIM回線番号</th>
+				<th>高速通信モード</th>
+			</tr>
+			<tr>
+				<td data-bind-text="PLAN.sim_no"></td>
+				<td data-bind-text="PLAN.plan_nm"></td>
+				<td>
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=1">
+						<img src="./img/plan_high_speed_yes.png" class="plan-speed-mode"/>
+					</div>
+					<div data-bind-show-if-eq="SPEED.mode_high_speed=0">
+						<img src="./img/plan_high_speed_not.png" class="plan-speed-mode"/>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<div class="plan-speed-change-action-area">
+			<div>
+				<label>
+					<input type="checkbox" id="speed-change-agree" data-view-toggle-trigger="speed-change-confirm"/>
+					通信速度を
+					<span data-bind-show-id="SPEED.mode_high_speed=1">低速</span>
+					<span data-bind-show-id="SPEED.mode_high_speed=0">高速</span>
+					にする
+				</label>
+			</div>
+			<div class="plan-speed-change-btn-wrapper">
+				<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main" class="toggle-btn-back">
+					戻る
+				</a>
+
+				<a href="javascript:void(0);"
+				   data-action-click-id="update-speed"
+				   class="toggle-btn-disable" data-bind-show-if-eq="SPEED.enable_change_speed=1"
+				   data-view-toggle-class="speed-change-confirm, toggle-btn-disable:inverse, toggle-btn-enable">
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="spa-page plan-speed-complete">
+		<div data-bind-show-if-eq="SPEED_UPDATE.status=0">
+			<h3>通信速度を切り替えました。</h3>
+			<div class="plan-change-explain">
+				<p>プラン名称：<span data-bind-text="PLAN.plan_nm"></span></p>
+				<p>SIM回線番号：<span data-bind-text="PLAN.sim_no"></span></p>
+			</div>
+		</div>
+
+		<div data-bind-show-if-eq="SPEED_UPDATE.status=1">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>エラーが発生しました。</p>
+			</div>
+		</div>
+
+		<div data-bind-show-if-eq="SPEED_UPDATE.status=2">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>ただいまメンテナンス中です。</p>
+			</div>
+		</div>
+
+		<div class="box-for-btn">
+			<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+				<img src="img/btn_back_off.gif" alt=""/>
+			</a>
+		</div>
+	</div>
+
+	<div class="spa-page plan-volume-add">
+		<h3>容量追加</h3>
+
+		<div id="volume-pack-error" class="volume-pack-error-hide">
+			容量を選択してください
+		</div>
+
+		<div class="plan-volume-add-action-area">
+			<div class="spa-select">
+				<select id="volume-pack-list"
+						data-bind-loop="VOLUME.volume_pack_list" data-action-change-id="select-volume-pack" data-action-change-params="val">
+					<option
+							data-bind-val="VOLUME.volume_pack_list.volume_pack_seq"
+							data-bind-selected="VOLUME.volume_pack_list.selected"
+							data-bind-text="VOLUME.volume_pack_list.default_text"
+							data-bind-text1="VOLUME.volume_pack_list.volume_pack_name" data-bind-text2="VOLUME.volume_pack_list.price_with_tax" data-bind-text-separator=" / "
+							data-bind-format-text2="number" data-bind-affix-text2="#円"></option>
+				</select>
+			</div>
+			<div>
+				<div class="plan-volume-add-agree-btn-wrapper">
+					<label>
+						<input type="checkbox" id="volume-add-agree" data-view-toggle-trigger="volume-add-confirm"/>左記内容で容量追加を行う
+					</label>
+					<div class="plan-volume-add-btn-wrapper">
+						<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+							<img src="img/btn_back_off.gif" alt="" class="plan-volume-add-back-btn"/>
+						</a>
+
+						<a href="javascript:void(0);"
+						   data-action-click-id="update-volume"
+						   class="toggle-btn-disable"
+						   data-view-toggle-class="volume-add-confirm, toggle-btn-disable:inverse, toggle-btn-enable">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="plan-volume-add-history-area" data-bind-show-if-not-empty="VOLUME_ADD_HISTORY.volume_add_history">
+			<span id="toggle-volume-add-history-area" data-view-toggle-trigger="toggle-slide-next:on">履歴を確認する</span>
+			<div class="toggle-slide-next-target">
+				<table class="tbl_volume_add_history">
+					<thead>
+					<tr>
+						<th>日時</th>
+						<th>容量</th>
+						<th>金額</th>
+					</tr>
+					</thead>
+					<tbody data-bind-loop="VOLUME_ADD_HISTORY.volume_add_history">
+					<tr>
+						<td data-bind-text1="VOLUME_ADD_HISTORY.volume_add_history.year" data-bind-text2="VOLUME_ADD_HISTORY.volume_add_history.month"
+							data-bind-text3="VOLUME_ADD_HISTORY.volume_add_history.day" data-bind-affix-text1="#年" data-bind-affix-text2="#月" data-bind-affix-text3="#日"></td>
+						<td data-bind-text="VOLUME_ADD_HISTORY.volume_add_history.volume_pack_name"></td>
+						<td data-bind-text="VOLUME_ADD_HISTORY.volume_add_history.price_with_tax" data-bind-format-text="number" data-bind-affix-text="#円"></td>
+					</tr>
+					</tbody>
+				</table>
+
+				<div id="volume-add-history-filter-area">
+					<select id="volume-add-history-filter" data-bind-loop="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter" data-action-change-id="filter-volume-add-history" data-action-change-params="val">
+						<option data-bind-text1="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.year" data-bind-text2="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.month"
+								data-bind-affix-text1="#年" data-bind-affix-text2="#月"
+								data-bind-text="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.text_for_all"
+								data-bind-val1="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.year" data-bind-val2="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.month"
+								data-bind-val-separator="-" data-bind-val="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.val_for_all"
+								data-bind-selected="VOLUME_ADD_HISTORY_FILTER.volume_add_history_filter.selected"></option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="spa-page plan-volume-complete">
+		<div data-bind-show-if-eq="VOLUME_UPDATE.status=0">
+			<h3>容量を追加しました。</h3>
+			<div class="plan-change-explain">
+				<span data-bind-text="SELECTED_VOLUME_PACK.volume_pack_name"></span> /
+				<span data-bind-text="SELECTED_VOLUME_PACK.price_with_tax" data-bind-format-text="number"></span>円
+			</div>
+		</div>
+
+		<div data-bind-show-if-eq="VOLUME_UPDATE.status=1">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>ただいまメンテナンス中です。</p>
+			</div>
+		</div>
+
+		<div data-bind-show-if-eq="VOLUME_UPDATE.status=2">
+			<h3>容量追加に失敗しました。</h3>
+			<div class="plan-change-explain">
+				<p>エラーが発生しました。</p>
+			</div>
+		</div>
+
+		<div class="box-for-btn">
+			<a href="javascript:void(0);" data-action-click-id="back-to-plan-detail-main">
+				<img src="img/btn_back_off.gif" alt=""/>
+			</a>
+		</div>
+	</div>
+
+	<div class="spa-page spa-error">
+		<div class="plan-change-explain">
+			エラーが発生しました。<br/>
+			お手数おかけしますが、再度ページを読み込み直してください。
+		</div>
+		<div class="box-for-btn">
+			<a href="javascript:void(0);">
+				マイページに戻る(画像待ち)
+				<!--<img src="img/btn_mytop_off.gif" alt="Err page"/>-->
+			</a>
+		</div>
+	</div>
+
+	<input type="hidden" id="contract-plan-id" value="111"/>
+	<input type="hidden" id="server-host" value="."/>
+	<input type="hidden" name="CHECK_KEY_3510" value="csrfcheckkey3510"/>
+	<input type="hidden" name="CHECK_KEY_3511" value="csrfcheckkey3511"/>
+</div>
+
+<script src="js/jquery/jquery.js"></script>
+<script src="js/jquery/jquery.uriAnchor.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="js/spa_page_manager.js"></script>
+<script src="js/service_contract_plan_speed_volume.js"></script>
+<script>
+    $(function () {
+        var is_debug_mode = true;
+        plan_speed_volume.initModule($('#server-host'), {'contractPlanId': $('#contract-plan-id').val()}, is_debug_mode);
+    });
+</script>
+</body>
+</html>
