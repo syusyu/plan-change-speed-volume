@@ -1,6 +1,29 @@
 {
   "volume_update": {
     "status": "0"
+  },
+  "volume_status": {
+    "enable_add_volume": "1",
+    "volume_pack_list": [
+      {"volume_pack_seq":"-1", "default_text": "選択してください", "selected": "selected"},
+      {"volume_pack_seq":"100", "volume_pack_name": "500M", "price_with_tax": "500"},
+      {"volume_pack_seq":"200", "volume_pack_name": "1G", "price_with_tax": "1000"},
+      {"volume_pack_seq":"300", "volume_pack_name": "3G", "price_with_tax": "3000"}
+    ],
+    "volume_add_history": [
+      {"year":"2016", "month":"1", "day":"10", "volume_pack_name": "1G", "price_with_tax": "1000"},
+      {"year":"2016", "month":"1", "day":"1", "volume_pack_name": "900M", "price_with_tax": "900"},
+      {"year":"2015", "month":"12", "day":"10", "volume_pack_name": "800M", "price_with_tax": "800"},
+      {"year":"2015", "month":"12", "day":"1", "volume_pack_name": "600M", "price_with_tax": "700"},
+      {"year":"2015", "month":"11", "day":"10", "volume_pack_name": "500M", "price_with_tax": "600"},
+      {"year":"2015", "month":"11", "day":"1", "volume_pack_name": "400M", "price_with_tax": "500"}
+    ],
+    "volume_add_history_filter": [
+      {"year": "2016", "month": "1", "selected": "selected"},
+      {"year": "2015", "month": "12"},
+      {"year": "2015", "month": "11"},
+      {"val_for_all": "all-all", "text_for_all": "全て表示"}
+    ]
   }
 
 }

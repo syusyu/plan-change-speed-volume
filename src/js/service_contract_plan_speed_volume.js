@@ -55,6 +55,8 @@ var plan_speed_volume = (function () {
                     logger.debug('createUpdateVolumeCallBack is called. data', data);
                     callbackFuncProto.callbackFunc.apply(this, arguments);
                     observer.trigger('VOLUME_UPDATE', model.get_volume_update());
+                    observer.trigger('VOLUME_ADD_HISTORY', model.filter_volume_add_history(model.get_first_element_of_history_filter()));
+                    observer.trigger('VOLUME_ADD_HISTORY_FILTER', model.get_volume_add_history_filter());
                 };
                 return result;
             },
