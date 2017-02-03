@@ -13,7 +13,7 @@ var plan_speed_volume = (function () {
             PATH_UPDATE_SPEED = server_host + '/data_update_succeeded_high.json',
             PATH_UPDATE_VOLUME = server_host + '/data_update_succeeded_volume.json',
             // PATH_INIT = server_host + '/data_init_high_speed.json',
-            // PATH_INIT = server_host + '/data_init_disable3.json',
+            // PATH_INIT = server_host + '/data_init_disable.json',
             // PATH_UPDATE_SPEED = server_host + '/data_update_succeeded_low.json',
             // PATH_UPDATE_SPEED = server_host + '/data_update_failed.json',
             // PATH_UPDATE_VOLUME = server_host + '/data_update_failed.json',
@@ -35,6 +35,7 @@ var plan_speed_volume = (function () {
                     observer.trigger('PLAN', model.get_plan_data());
                     observer.trigger('VOLUME_ADD_HISTORY', model.filter_volume_add_history(model.get_first_element_of_history_filter()));
                     observer.trigger('VOLUME_ADD_HISTORY_FILTER', model.get_volume_add_history_filter());
+                    shell.init_volume_add_history_filter();
                 };
                 return result;
             },
@@ -57,6 +58,7 @@ var plan_speed_volume = (function () {
                     observer.trigger('VOLUME_UPDATE', model.get_volume_update());
                     observer.trigger('VOLUME_ADD_HISTORY', model.filter_volume_add_history(model.get_first_element_of_history_filter()));
                     observer.trigger('VOLUME_ADD_HISTORY_FILTER', model.get_volume_add_history_filter());
+                    shell.init_volume_add_history_filter();
                 };
                 return result;
             },
@@ -264,6 +266,12 @@ var plan_speed_volume = (function () {
             init_volume_pack_selection = function () {
                 $('#volume-pack-list').val(-1);
             },
+            init_volume_add_history_filter = function () {
+                var $history_filter = $('#volume-add-history-filter');
+                if (spa_page_util.exists($history_filter) && spa_page_util.exists($history_filter.children())) {
+                    $('#volume-add-history-filter option:nth-child(2)').prop('selected', true);
+                }
+            },
             tear_down = function () {
                 hide_error_message();
                 check_off_volume_agreement();
@@ -290,6 +298,7 @@ var plan_speed_volume = (function () {
                 $('#volume-add-history-filter').val(selected_filter);
             };
         return {
+            init_volume_add_history_filter: init_volume_add_history_filter,
             show_error_message: show_error_message,
             hide_error_message: hide_error_message,
             tear_down: tear_down,
