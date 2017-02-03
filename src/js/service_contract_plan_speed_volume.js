@@ -129,6 +129,7 @@ var plan_speed_volume = (function () {
             _volume_update, get_volume_update,
             _volume_add_history, _volume_add_history_filter,
             filter_volume_add_history, get_volume_add_history_filter, get_first_element_of_history_filter,
+            sort_desc_by_date,
             prepare;
 
         prepare = function (data) {
@@ -142,9 +143,11 @@ var plan_speed_volume = (function () {
                 _volume_status = data.volume_status;
                 if (_volume_status.volume_add_history) {
                     _volume_add_history = _volume_status.volume_add_history;
+                    sort_desc_by_date(_volume_add_history);
                 }
                 if (_volume_status.volume_add_history_filter) {
                     _volume_add_history_filter = _volume_status.volume_add_history_filter;
+                    sort_desc_by_date(_volume_add_history_filter);
                 }
             }
             if (data.volume_update) {
@@ -199,6 +202,21 @@ var plan_speed_volume = (function () {
                 return (y === 'all' || m === 'all') ? true : (el.year === y && el.month === m);
             });
             return {'volume_add_history': result};
+        };
+        sort_desc_by_date = function (list) {
+            list.sort(function (o1, o2) {
+                if (!o1.year) return 1;
+                if (!o2.year) return -1;
+                if (o1.year > o2.year) return -1;
+                if (o1.year < o2.year) return 1;
+                if (o1.month > o2.month) return -1;
+                if (o1.month < o2.month) return 1;
+                if (o1.day && o2.day) {
+                    if (o1.day > o2.day) return -1;
+                    if (o1.day < o2.day) return 1;
+                }
+                return 0;
+            })
         };
         get_volume_add_history_filter = function () {
             return {'volume_add_history_filter': _volume_add_history_filter};
