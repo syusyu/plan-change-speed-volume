@@ -836,10 +836,12 @@ spa_page_transition.data_bind = (function () {
             }
 
             $.each(cloned_elements, function (idx, $el_child) {
+                $($el_child).removeAttr('disabled');
                 $($el_child).show();
                 $(el).append($el_child);
             });
             $.each(clone_target_elements, function (idx, $el_child) {
+                $el_child.attr('disabled', true);
                 $el_child.hide();
             });
 

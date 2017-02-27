@@ -116,3 +116,7 @@ div[data-bind-show-if-eq], div[data-bind-show-if-not-eq], div[data-bind-show-if-
     background: url(../img/spa_select_arrow.png) right 50% no-repeat, linear-gradient(to bottom, #fff 0%,#dddddd 100%);
     background-size: 20px, 100%;
 }
+
+.spa-select select::-ms-expand {
+    display: none;
+}
